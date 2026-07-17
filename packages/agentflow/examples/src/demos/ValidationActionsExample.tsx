@@ -9,8 +9,8 @@
 
 import { useState } from 'react'
 
-import { Agentflow } from '@flowiseai/agentflow'
 import { Box, Dialog, DialogContent, DialogTitle, Fab, IconButton, Typography } from '@mui/material'
+import { Agentflow } from '@nexora/agentflow'
 import { IconMessage, IconX } from '@tabler/icons-react'
 
 import { apiBaseUrl, token } from '../config'

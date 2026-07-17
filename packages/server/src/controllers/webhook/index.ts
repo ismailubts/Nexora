@@ -6,9 +6,9 @@ import predictionsServices from '../../services/predictions'
 import chatflowsService from '../../services/chatflows'
 import webhookService from '../../services/webhook'
 import { getWebhookListenerRegistry } from '../../services/webhook-listener'
-import { redactSensitiveHeaders } from 'flowise-components'
+import { redactSensitiveHeaders } from 'nexora-components'
 import { ChatType } from '../../Interface'
-import { InternalFlowiseError } from '../../errors/internalFlowiseError'
+import { InternalNEXORAError } from '../../errors/internalNexoraError'
 import { dispatchCallback } from '../../utils/callbackDispatcher'
 import { getErrorMessage } from '../../errors/utils'
 import { getRunningExpressApp } from '../../utils/getRunningExpressApp'
@@ -17,7 +17,7 @@ import logger from '../../utils/logger'
 const createWebhook = async (req: Request, res: Response, next: NextFunction) => {
     try {
         if (typeof req.params === 'undefined' || !req.params.id) {
-            throw new InternalFlowiseError(StatusCodes.PRECONDITION_FAILED, `Error: webhookController.createWebhook - id not provided!`)
+            throw new InternalNEXORAError(StatusCodes.PRECONDITION_FAILED, `Error: webhookController.createWebhook - id not provided!`)
         }
 
         const workspaceId = req.user?.activeWorkspaceId
@@ -107,7 +107,7 @@ const createWebhook = async (req: Request, res: Response, next: NextFunction) =>
                     const parsed = new URL(callbackUrl)
                     if (parsed.protocol !== 'http:' && parsed.protocol !== 'https:') throw new Error()
                 } catch {
-                    throw new InternalFlowiseError(StatusCodes.BAD_REQUEST, `Invalid callbackUrl: must be a valid http or https URL`)
+                    throw new InternalNEXORAError(StatusCodes.BAD_REQUEST, `Invalid callbackUrl: must be a valid http or https URL`)
                 }
             }
 
@@ -125,7 +125,7 @@ const createWebhook = async (req: Request, res: Response, next: NextFunction) =>
                         return // fire-and-forget — no delivery
                     }
 
-                    // apiResponse.action is the parsed humanInputAction — only present when flow is STOPPED (FLOWISE-387)
+                    // apiResponse.action is the parsed humanInputAction — only present when flow is STOPPED (Nexora-387)
                     if (apiResponse.action) {
                         await dispatchCallback(
                             callbackUrl,

@@ -442,12 +442,12 @@ class ExtendedLunaryHandler extends LunaryHandler {
     thread: any
     apiMessageId: string
 
-    constructor({ flowiseOptions, ...options }: any) {
+    constructor({ NEXORAOptions, ...options }: any) {
         super(options)
-        this.appDataSource = flowiseOptions.appDataSource
-        this.databaseEntities = flowiseOptions.databaseEntities
-        this.chatId = flowiseOptions.chatId
-        this.apiMessageId = flowiseOptions.apiMessageId
+        this.appDataSource = NEXORAOptions.appDataSource
+        this.databaseEntities = NEXORAOptions.databaseEntities
+        this.chatId = NEXORAOptions.chatId
+        this.apiMessageId = NEXORAOptions.apiMessageId
     }
 
     async initThread() {
@@ -560,7 +560,7 @@ export const additionalCallbacks = async (nodeData: INodeData, options: ICommonO
                         secretKey: langFuseSecretKey,
                         publicKey: langFusePublicKey,
                         baseUrl: langFuseEndpoint ?? 'https://cloud.langfuse.com',
-                        sdkIntegration: 'Flowise'
+                        sdkIntegration: 'Nexora'
                     }
                     if (release) langFuseOptions.release = release
                     if (options.chatId) langFuseOptions.sessionId = options.chatId
@@ -578,8 +578,8 @@ export const additionalCallbacks = async (nodeData: INodeData, options: ICommonO
                     let lunaryFields = {
                         publicKey: lunaryPublicKey,
                         apiUrl: lunaryEndpoint ?? 'https://api.lunary.ai',
-                        runtime: 'flowise',
-                        flowiseOptions: options
+                        runtime: 'Nexora',
+                        NEXORAOptions: options
                     }
 
                     if (nodeData?.inputs?.analytics?.lunary) {
@@ -627,7 +627,7 @@ export const additionalCallbacks = async (nodeData: INodeData, options: ICommonO
                         spaceId: arizeSpaceId,
                         baseUrl: arizeEndpoint ?? 'https://otlp.arize.com',
                         projectName: arizeProject ?? 'default',
-                        sdkIntegration: 'Flowise',
+                        sdkIntegration: 'Nexora',
                         enableCallback: true
                     }
 
@@ -647,7 +647,7 @@ export const additionalCallbacks = async (nodeData: INodeData, options: ICommonO
                         apiKey: phoenixApiKey,
                         baseUrl: phoenixEndpoint ?? 'https://app.phoenix.arize.com',
                         projectName: phoenixProject ?? 'default',
-                        sdkIntegration: 'Flowise',
+                        sdkIntegration: 'Nexora',
                         enableCallback: true
                     }
 
@@ -669,7 +669,7 @@ export const additionalCallbacks = async (nodeData: INodeData, options: ICommonO
                         baseUrl: opikEndpoint ?? 'https://www.comet.com/opik/api',
                         projectName: opikProject ?? 'default',
                         workspace: opikWorkspace ?? 'default',
-                        sdkIntegration: 'Flowise',
+                        sdkIntegration: 'Nexora',
                         enableCallback: true
                     }
 
@@ -830,7 +830,7 @@ export class AnalyticHandler {
                 secretKey: langFuseSecretKey,
                 publicKey: langFusePublicKey,
                 baseUrl: langFuseEndpoint ?? 'https://cloud.langfuse.com',
-                sdkIntegration: 'Flowise',
+                sdkIntegration: 'Nexora',
                 release
             })
             this.handlers['langFuse'] = { client: langfuse }
@@ -841,7 +841,7 @@ export class AnalyticHandler {
             lunary.init({
                 publicKey: lunaryPublicKey,
                 apiUrl: lunaryEndpoint,
-                runtime: 'flowise'
+                runtime: 'Nexora'
             })
 
             this.handlers['lunary'] = { client: lunary }
@@ -866,7 +866,7 @@ export class AnalyticHandler {
                 spaceId: arizeSpaceId,
                 baseUrl: arizeEndpoint ?? 'https://otlp.arize.com',
                 projectName: arizeProject ?? 'default',
-                sdkIntegration: 'Flowise',
+                sdkIntegration: 'Nexora',
                 enableCallback: false
             }
 
@@ -883,7 +883,7 @@ export class AnalyticHandler {
                 apiKey: phoenixApiKey,
                 baseUrl: phoenixEndpoint ?? 'https://app.phoenix.arize.com',
                 projectName: phoenixProject ?? 'default',
-                sdkIntegration: 'Flowise',
+                sdkIntegration: 'Nexora',
                 enableCallback: false
             }
 
@@ -902,7 +902,7 @@ export class AnalyticHandler {
                 baseUrl: opikEndpoint ?? 'https://www.comet.com/opik/api',
                 projectName: opikProject ?? 'default',
                 workspace: opikWorkspace ?? 'default',
-                sdkIntegration: 'Flowise',
+                sdkIntegration: 'Nexora',
                 enableCallback: false
             }
 
@@ -1049,7 +1049,7 @@ export class AnalyticHandler {
             let rootSpan: Span | undefined = this.handlers['arize'].rootSpan
 
             if (!parentIds || !Object.keys(parentIds).length) {
-                rootSpan = tracer ? tracer.startSpan('Flowise') : undefined
+                rootSpan = tracer ? tracer.startSpan('Nexora') : undefined
                 if (rootSpan) {
                     rootSpan.setAttribute('session.id', this.options.chatId)
                     rootSpan.setAttribute('openinference.span.kind', 'CHAIN')
@@ -1083,7 +1083,7 @@ export class AnalyticHandler {
             let rootSpan: Span | undefined = this.handlers['phoenix'].rootSpan
 
             if (!parentIds || !Object.keys(parentIds).length) {
-                rootSpan = tracer ? tracer.startSpan('Flowise') : undefined
+                rootSpan = tracer ? tracer.startSpan('Nexora') : undefined
                 if (rootSpan) {
                     rootSpan.setAttribute('session.id', this.options.chatId)
                     rootSpan.setAttribute('openinference.span.kind', 'CHAIN')
@@ -1117,7 +1117,7 @@ export class AnalyticHandler {
             let rootSpan: Span | undefined = this.handlers['opik'].rootSpan
 
             if (!parentIds || !Object.keys(parentIds).length) {
-                rootSpan = tracer ? tracer.startSpan('Flowise') : undefined
+                rootSpan = tracer ? tracer.startSpan('Nexora') : undefined
                 if (rootSpan) {
                     rootSpan.setAttribute('session.id', this.options.chatId)
                     rootSpan.setAttribute('openinference.span.kind', 'CHAIN')

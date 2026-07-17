@@ -546,7 +546,7 @@ describe('NodeInputHandler – credential type rendering', () => {
     it('renders AsyncInputComponent for credential type', () => {
         render(
             <NodeInputHandler
-                inputParam={makeParam({ type: 'credential', name: 'FLOWISE_CREDENTIAL_ID', credentialNames: ['awsApi'] })}
+                inputParam={makeParam({ type: 'credential', name: 'NEXORA_CREDENTIAL_ID', credentialNames: ['awsApi'] })}
                 data={baseNodeData}
                 isAdditionalParams
                 onDataChange={mockOnDataChange}
@@ -560,7 +560,7 @@ describe('NodeInputHandler – credential type rendering', () => {
     it('renders nothing for credential type when no AsyncInputComponent', () => {
         const { container } = render(
             <NodeInputHandler
-                inputParam={makeParam({ type: 'credential', name: 'FLOWISE_CREDENTIAL_ID', credentialNames: ['awsApi'] })}
+                inputParam={makeParam({ type: 'credential', name: 'NEXORA_CREDENTIAL_ID', credentialNames: ['awsApi'] })}
                 data={baseNodeData}
                 isAdditionalParams
                 onDataChange={mockOnDataChange}
@@ -573,7 +573,7 @@ describe('NodeInputHandler – credential type rendering', () => {
     it('calls onDataChange when credential onChange fires', () => {
         render(
             <NodeInputHandler
-                inputParam={makeParam({ type: 'credential', name: 'FLOWISE_CREDENTIAL_ID', credentialNames: ['awsApi'] })}
+                inputParam={makeParam({ type: 'credential', name: 'NEXORA_CREDENTIAL_ID', credentialNames: ['awsApi'] })}
                 data={baseNodeData}
                 isAdditionalParams
                 onDataChange={mockOnDataChange}
@@ -584,7 +584,7 @@ describe('NodeInputHandler – credential type rendering', () => {
         fireEvent.click(screen.getByTestId('credential-select'))
 
         expect(mockOnDataChange).toHaveBeenCalledWith({
-            inputParam: expect.objectContaining({ name: 'FLOWISE_CREDENTIAL_ID', type: 'credential' }),
+            inputParam: expect.objectContaining({ name: 'NEXORA_CREDENTIAL_ID', type: 'credential' }),
             newValue: 'cred-id-123'
         })
     })

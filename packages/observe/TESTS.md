@@ -1,4 +1,4 @@
-# @flowiseai/observe — Testing Guide
+# @nexora/observe — Testing Guide
 
 ## Running Tests
 

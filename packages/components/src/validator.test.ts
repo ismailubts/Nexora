@@ -263,39 +263,39 @@ describe('validateMimeTypeAndExtensionMatch', () => {
 
 describe('validateVectorStorePath', () => {
     const userHome = getUserHome()
-    const defaultFlowisePath = path.join(userHome, '.flowise')
+    const defaultNEXORAPath = path.join(userHome, '.Nexora')
 
     describe('valid paths', () => {
         it('should return default path when no path is provided', () => {
             const result = validateVectorStorePath(undefined)
-            expect(result).toBe(path.join(userHome, '.flowise', 'vectorstore'))
+            expect(result).toBe(path.join(userHome, '.Nexora', 'vectorstore'))
         })
 
         it('should return default path when empty string is provided', () => {
             const result = validateVectorStorePath('')
-            expect(result).toBe(path.join(userHome, '.flowise', 'vectorstore'))
+            expect(result).toBe(path.join(userHome, '.Nexora', 'vectorstore'))
         })
 
         it('should return default path when whitespace string is provided', () => {
             const result = validateVectorStorePath('   ')
-            expect(result).toBe(path.join(userHome, '.flowise', 'vectorstore'))
+            expect(result).toBe(path.join(userHome, '.Nexora', 'vectorstore'))
         })
 
-        it('should accept relative path within .flowise directory', () => {
+        it('should accept relative path within .Nexora directory', () => {
             const relativePath = 'vectorstore/faiss'
             const result = validateVectorStorePath(relativePath)
 
-            // Should resolve to absolute path within .flowise
+            // Should resolve to absolute path within .Nexora
             expect(path.isAbsolute(result)).toBe(true)
-            expect(result).toContain('.flowise')
+            expect(result).toContain('.Nexora')
         })
 
-        it('should accept absolute path within .flowise directory', () => {
-            const absolutePath = path.join(defaultFlowisePath, 'vectorstore', 'test')
+        it('should accept absolute path within .Nexora directory', () => {
+            const absolutePath = path.join(defaultNEXORAPath, 'vectorstore', 'test')
             const result = validateVectorStorePath(absolutePath)
 
             expect(result).toBe(absolutePath)
-            expect(result.startsWith(defaultFlowisePath)).toBe(true)
+            expect(result.startsWith(defaultNEXORAPath)).toBe(true)
         })
     })
 
@@ -377,7 +377,7 @@ describe('validateVectorStorePath', () => {
             }
         })
 
-        it('should reject path to user home root (outside .flowise)', () => {
+        it('should reject path to user home root (outside .Nexora)', () => {
             const homeRootPath = path.join(userHome, 'Documents', 'vectorstore')
 
             expect(() => {
@@ -414,34 +414,34 @@ describe('validateVectorStorePath', () => {
             expect(result).toBe(testPath)
         })
 
-        it('should allow path within .flowise even when BLOB_STORAGE_PATH is configured', () => {
+        it('should allow path within .Nexora even when BLOB_STORAGE_PATH is configured', () => {
             process.env.BLOB_STORAGE_PATH = path.join(userHome, 'custom-storage')
 
-            const flowisePath = path.join(defaultFlowisePath, 'vectorstore')
-            const result = validateVectorStorePath(flowisePath)
+            const NEXORAPath = path.join(defaultNEXORAPath, 'vectorstore')
+            const result = validateVectorStorePath(NEXORAPath)
 
-            expect(result).toBe(flowisePath)
+            expect(result).toBe(NEXORAPath)
         })
     })
 
     describe('edge cases', () => {
         it('should handle paths with multiple slashes', () => {
-            const pathWithMultipleSlashes = path.join(defaultFlowisePath, 'vectorstore', 'test')
+            const pathWithMultipleSlashes = path.join(defaultNEXORAPath, 'vectorstore', 'test')
             const result = validateVectorStorePath(pathWithMultipleSlashes)
 
             expect(result).toBe(path.normalize(pathWithMultipleSlashes))
         })
 
         it('should handle paths with trailing slashes', () => {
-            const pathWithTrailingSlash = path.join(defaultFlowisePath, 'vectorstore') + path.sep
+            const pathWithTrailingSlash = path.join(defaultNEXORAPath, 'vectorstore') + path.sep
             const result = validateVectorStorePath(pathWithTrailingSlash)
 
-            expect(result.startsWith(defaultFlowisePath)).toBe(true)
+            expect(result.startsWith(defaultNEXORAPath)).toBe(true)
         })
 
         it('should normalize path separators', () => {
             // Create a path that might have mixed separators
-            const mixedPath = path.join(defaultFlowisePath, 'vectorstore', 'faiss')
+            const mixedPath = path.join(defaultNEXORAPath, 'vectorstore', 'faiss')
             const result = validateVectorStorePath(mixedPath)
 
             expect(result).toBe(path.normalize(mixedPath))
@@ -471,34 +471,34 @@ describe('validateVectorStorePath', () => {
 
         it('should return default path when undefined', () => {
             const userHome = getUserHome()
-            expect(validateVectorStorePath(undefined)).toBe(path.join(userHome, '.flowise', 'vectorstore'))
+            expect(validateVectorStorePath(undefined)).toBe(path.join(userHome, '.Nexora', 'vectorstore'))
         })
     })
 })
 
 describe('validateSQLitePath', () => {
     const userHome = getUserHome()
-    const defaultFlowiseDir = path.join(userHome, '.flowise')
+    const defaultNEXORADir = path.join(userHome, '.Nexora')
 
     describe('valid paths', () => {
-        it('should resolve a simple filename to ~/.flowise/<filename>', () => {
+        it('should resolve a simple filename to ~/.nexora/<filename>', () => {
             const result = validateSQLitePath('mydb.sqlite')
-            expect(result).toBe(path.join(defaultFlowiseDir, 'mydb.sqlite'))
+            expect(result).toBe(path.join(defaultNEXORADir, 'mydb.sqlite'))
         })
 
-        it('should resolve a relative subdirectory path within ~/.flowise', () => {
+        it('should resolve a relative subdirectory path within ~/.nexora', () => {
             const result = validateSQLitePath('dbs/mydb.sqlite')
-            expect(result).toBe(path.join(defaultFlowiseDir, 'dbs', 'mydb.sqlite'))
+            expect(result).toBe(path.join(defaultNEXORADir, 'dbs', 'mydb.sqlite'))
         })
 
-        it('should accept an absolute path within ~/.flowise', () => {
-            const absolutePath = path.join(defaultFlowiseDir, 'mydb.sqlite')
+        it('should accept an absolute path within ~/.nexora', () => {
+            const absolutePath = path.join(defaultNEXORADir, 'mydb.sqlite')
             const result = validateSQLitePath(absolutePath)
             expect(result).toBe(absolutePath)
         })
 
-        it('should accept an absolute path in a nested directory within ~/.flowise', () => {
-            const absolutePath = path.join(defaultFlowiseDir, 'dbs', 'project', 'mydb.sqlite')
+        it('should accept an absolute path in a nested directory within ~/.nexora', () => {
+            const absolutePath = path.join(defaultNEXORADir, 'dbs', 'project', 'mydb.sqlite')
             const result = validateSQLitePath(absolutePath)
             expect(result).toBe(absolutePath)
         })
@@ -576,12 +576,12 @@ describe('validateSQLitePath', () => {
         })
 
         it('should reject path to frontend build directory (XSS attack vector)', () => {
-            expect(() => validateSQLitePath('/usr/local/lib/node_modules/flowise/node_modules/flowise-ui/build/xss.html')).toThrow(
+            expect(() => validateSQLitePath('/usr/local/lib/node_modules/Nexora/node_modules/nexora-ui/build/xss.html')).toThrow(
                 /Invalid SQLite path:/
             )
         })
 
-        it('should reject path to home directory outside .flowise', () => {
+        it('should reject path to home directory outside .Nexora', () => {
             const outsidePath = path.join(userHome, 'Documents', 'db.sqlite')
             expect(() => validateSQLitePath(outsidePath)).toThrow(/Invalid SQLite path: path must be within/)
         })
@@ -599,14 +599,14 @@ describe('validateSQLitePath', () => {
         })
 
         it('should accept database file under DATABASE_PATH when set', () => {
-            const customBase = path.join(userHome, 'custom-flowise-data')
+            const customBase = path.join(userHome, 'custom-Nexora-data')
             process.env.DATABASE_PATH = customBase
             const dbPath = path.join(customBase, 'database.sqlite')
             expect(validateSQLitePath(dbPath)).toBe(path.resolve(dbPath))
         })
 
-        it('should still reject paths outside DATABASE_PATH and .flowise', () => {
-            process.env.DATABASE_PATH = path.join(userHome, 'custom-flowise-data')
+        it('should still reject paths outside DATABASE_PATH and .Nexora', () => {
+            process.env.DATABASE_PATH = path.join(userHome, 'custom-Nexora-data')
             expect(() => validateSQLitePath('/etc/chromium/exploit.conf')).toThrow(/Invalid SQLite path:/)
         })
     })
@@ -633,12 +633,12 @@ describe('validateSQLitePath', () => {
         })
 
         it('should return default when undefined', () => {
-            expect(validateSQLitePath(undefined)).toBe(path.join(defaultFlowiseDir, 'database.sqlite'))
+            expect(validateSQLitePath(undefined)).toBe(path.join(defaultNEXORADir, 'database.sqlite'))
         })
 
-        it('should resolve relative path within .flowise when no absolute path given', () => {
+        it('should resolve relative path within .Nexora when no absolute path given', () => {
             const result = validateSQLitePath('test.db')
-            expect(result).toBe(path.join(defaultFlowiseDir, 'test.db'))
+            expect(result).toBe(path.join(defaultNEXORADir, 'test.db'))
         })
     })
 
@@ -656,13 +656,13 @@ describe('validateSQLitePath', () => {
         })
 
         it('should accept a valid path whose casing differs from the allowed directory', () => {
-            // allowedDir = /Users/TestUser/.flowise (mixed case from getUserHome mock)
-            // user input  = /users/testuser/.flowise/mydb.sqlite (all lowercase)
-            const result = validateSQLitePath('/users/testuser/.flowise/mydb.sqlite')
-            expect(result).toBe('/users/testuser/.flowise/mydb.sqlite')
+            // allowedDir = /Users/TestUser/.nexora (mixed case from getUserHome mock)
+            // user input  = /users/testuser/.nexora/mydb.sqlite (all lowercase)
+            const result = validateSQLitePath('/users/testuser/.nexora/mydb.sqlite')
+            expect(result).toBe('/users/testuser/.nexora/mydb.sqlite')
         })
 
-        it('should still reject a path outside .flowise even after case normalisation', () => {
+        it('should still reject a path outside .Nexora even after case normalisation', () => {
             expect(() => validateSQLitePath('/users/testuser/documents/mydb.sqlite')).toThrow(/Invalid SQLite path:/)
         })
     })
@@ -672,7 +672,7 @@ describe('isValidURL', () => {
     describe('accepts valid http/https URLs', () => {
         it.each([
             ['bare http host', 'http://localhost:3000'],
-            ['https with path', 'https://flowise.example.com/api'],
+            ['https with path', 'https://Nexora.example.com/api'],
             ['http with port and path', 'http://192.168.1.1:3000/api/v1'],
             ['https with query string', 'https://example.com/search?q=hello']
         ])('should accept %s', (_desc, url) => {
@@ -751,7 +751,7 @@ describe('getSafeFilePath', () => {
     describe('throws on path traversal / absolute keys', () => {
         it.each([
             ['parent traversal', '../escape.txt'],
-            ['deep traversal', '../../../../tmp/flowise-poc.txt'],
+            ['deep traversal', '../../../../tmp/Nexora-poc.txt'],
             ['traversal mid-path', 'a/../../escape.txt'],
             ['bare dot-dot', '..'],
             ['absolute unix path', '/etc/cron.d/evil'],

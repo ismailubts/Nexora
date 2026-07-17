@@ -3,7 +3,7 @@ import { BaseCache } from '@langchain/core/caches'
 import { BaseLLMParams } from '@langchain/core/language_models/llms'
 import { ICommonObject, IMultiModalOption, INode, INodeData, INodeParams } from '../../../src/Interface'
 import { getBaseClasses, getCredentialData, getCredentialParam } from '../../../src/utils'
-import { ChatOpenAI } from '../ChatOpenAI/FlowiseChatOpenAI'
+import { ChatOpenAI } from '../ChatOpenAI/NexoraChatOpenAI'
 import { checkDenyList } from '../../../src/httpSecurity'
 
 class ChatLitellm_ChatModels implements INode {
@@ -74,7 +74,7 @@ class ChatLitellm_ChatModels implements INode {
                 name: 'allowImageUploads',
                 type: 'boolean',
                 description:
-                    'Allow image input. Image uploads need a model marked supports_vision=true in LiteLLM. Refer to the <a href="https://docs.flowiseai.com/using-flowise/uploads#image" target="_blank">docs</a> for more details.',
+                    'Allow image input. Image uploads need a model marked supports_vision=true in LiteLLM. Refer to the <a href="https://github.com/ismailubts/Nexora/using-Nexora/uploads#image" target="_blank">docs</a> for more details.',
                 default: false,
                 optional: true
             },

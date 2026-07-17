@@ -14,9 +14,9 @@ import { ConsoleCallbackHandler as LCConsoleCallbackHandler } from '@langchain/c
 import { checkInputs, Moderation, streamResponse } from '../../moderation/Moderation'
 import { formatResponse } from '../../outputparsers/OutputParserHelpers'
 import { addImagesToMessages, llmSupportsVision } from '../../../src/multiModalUtils'
-import { ChatOpenAI } from '../../chatmodels/ChatOpenAI/FlowiseChatOpenAI'
+import { ChatOpenAI } from '../../chatmodels/ChatOpenAI/NexoraChatOpenAI'
 import {
-    FlowiseMemory,
+    NEXORAMemory,
     ICommonObject,
     INode,
     INodeData,
@@ -167,7 +167,7 @@ class ConversationChain_Chains implements INode {
 }
 
 const prepareChatPrompt = (nodeData: INodeData, humanImageMessages: MessageContentImageUrl[]) => {
-    const memory = nodeData.inputs?.memory as FlowiseMemory
+    const memory = nodeData.inputs?.memory as NEXORAMemory
     let prompt = nodeData.inputs?.systemMessagePrompt as string
     prompt = transformBracesWithColon(prompt)
     const chatPromptTemplate = nodeData.inputs?.chatPromptTemplate as ChatPromptTemplate
@@ -224,7 +224,7 @@ const prepareChatPrompt = (nodeData: INodeData, humanImageMessages: MessageConte
 
 const prepareChain = async (nodeData: INodeData, options: ICommonObject, sessionId?: string) => {
     let model = nodeData.inputs?.model as BaseChatModel
-    const memory = nodeData.inputs?.memory as FlowiseMemory
+    const memory = nodeData.inputs?.memory as NEXORAMemory
     const memoryKey = memory.memoryKey ?? 'chat_history'
     const prependMessages = options?.prependMessages
 

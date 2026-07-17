@@ -4,7 +4,7 @@ import { StreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/
 import { z } from 'zod/v3'
 import { v4 as uuidv4 } from 'uuid'
 import { StatusCodes } from 'http-status-codes'
-import { InternalFlowiseError } from '../../errors/internalFlowiseError'
+import { InternalNEXORAError } from '../../errors/internalNexoraError'
 import { getErrorMessage } from '../../errors/utils'
 import { utilBuildChatflow } from '../../utils/buildChatflow'
 import { createMockRequest } from '../../utils/mockRequest'
@@ -218,12 +218,12 @@ async function chatflowCallback(
 }
 
 /**
- * Handle an InternalFlowiseError from getChatflowByIdAndVerifyToken.
+ * Handle an InternalNEXORAError from getChatflowByIdAndVerifyToken.
  * Writes the appropriate JSON-RPC error response and returns true if handled.
  * Returns false for unrecognised errors so the caller can rethrow.
  */
 function handleServiceError(error: unknown, res: Response): boolean {
-    if (error instanceof InternalFlowiseError) {
+    if (error instanceof InternalNEXORAError) {
         if (error.statusCode === StatusCodes.UNAUTHORIZED) {
             res.status(401).json({
                 jsonrpc: '2.0',
@@ -277,7 +277,7 @@ const handleMcpRequest = async (chatflowId: string, token: string, req: Request,
     // Create a stateless MCP server for this request
     const mcpServer = new McpServer(
         {
-            name: `flowise-${toolName}`,
+            name: `Nexora-${toolName}`,
             version: '1.0.0'
         },
         {

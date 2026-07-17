@@ -198,14 +198,14 @@ describe('initNode', () => {
         expect(result.inputParams).toHaveLength(2)
         expect(result.inputParams![0]).toEqual(
             expect.objectContaining({
-                name: 'FLOWISE_CREDENTIAL_ID',
+                name: 'NEXORA_CREDENTIAL_ID',
                 label: 'AWS Credential',
                 type: 'credential',
                 credentialNames: ['awsApi']
             })
         )
         expect(result.inputParams![1].name).toBe('temperature')
-        expect(result.inputs!['FLOWISE_CREDENTIAL_ID']).toBe('')
+        expect(result.inputs!['NEXORA_CREDENTIAL_ID']).toBe('')
     })
 
     it('should not add credential param when node has no credential property', () => {
@@ -247,7 +247,7 @@ describe('initNode', () => {
         const nodeData = makeNodeDataSchema({
             filePath: '/some/server/path/Agent.js',
             badge: 'NEW',
-            author: 'Flowise',
+            author: 'Nexora',
             documentation: 'https://docs.example.com',
             tags: ['LLM', 'OpenAI'],
             loadMethods: { listModels: () => Promise.resolve([]) }

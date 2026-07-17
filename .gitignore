@@ -1,6 +1,5 @@
 # editor
 .idea
-.vscode
 
 # dependencies
 **/node_modules
@@ -30,11 +29,9 @@
 .DS_Store
 
 ## env
-.env.local
 .env.development.local
 .env.test.local
 .env.production.local
-.env
 
 ## turbo
 .turbo
@@ -50,7 +47,6 @@
 **/*.tgz
 
 ## vscode
-.vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json
@@ -120,3 +116,7 @@ apps/*/
 .claude/settings.local.json
 .claude/agent-memory/*
 
+branch_structure.json
+temp_auto_push.bat
+temp_interactive_push.bat
+config.bat

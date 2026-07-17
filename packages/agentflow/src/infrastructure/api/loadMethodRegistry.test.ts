@@ -131,10 +131,10 @@ describe('loadMethodRegistry', () => {
             expect(result).toEqual(mockActions)
         })
 
-        it('should extract credential from FLOWISE_CREDENTIAL_ID when credential field is absent', async () => {
+        it('should extract credential from NEXORA_CREDENTIAL_ID when credential field is absent', async () => {
             ;(mockApis.nodesApi.loadNodeMethod as jest.Mock).mockResolvedValue([])
 
-            const inputs = { FLOWISE_CREDENTIAL_ID: 'cred-456', appName: 'github' }
+            const inputs = { NEXORA_CREDENTIAL_ID: 'cred-456', appName: 'github' }
             await loadMethodRegistry['listActions'](mockApis, {
                 nodeName: 'composio',
                 inputs

@@ -1,16 +1,16 @@
 <!-- markdownlint-disable MD030 -->
 
-# Flowise API 文档
+# Nexora API 文档
 
 [English](./README.md) | 中文
 
-这是 Flowise 公共 API 的列表，允许用户以编程方式执行与 GUI 中相同的许多任务。
+这是 Nexora 公共 API 的列表，允许用户以编程方式执行与 GUI 中相同的许多任务。
 
 独立运行：
 
-1. 启动 Flowise 服务器：
+1. 启动 Nexora 服务器：
     ```sh
-    cd Flowise
+    cd Nexora
     pnpm start
     ```
 2. 启动 API 文档服务器：
@@ -22,7 +22,7 @@
 开发模式下运行：
 
 ```sh
-cd Flowise
+cd Nexora
 pnpm dev
 ```
 
@@ -30,4 +30,4 @@ pnpm dev
 
 ## 许可证
 
-此存储库中的源代码根据 Apache 2.0 许可证 提供
+Copyright (c) Abdul Ismail. All rights reserved. See LICENSE.md.

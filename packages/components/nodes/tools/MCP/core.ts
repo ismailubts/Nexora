@@ -29,7 +29,7 @@ export class MCPToolkit extends BaseToolkit {
     async createClient(injectHeaders: Record<string, string> = {}): Promise<Client> {
         const client = new Client(
             {
-                name: 'flowise-client',
+                name: 'Nexora-client',
                 version: '1.0.0'
             },
             {

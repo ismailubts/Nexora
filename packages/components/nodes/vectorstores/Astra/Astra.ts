@@ -116,7 +116,7 @@ class Astra_VectorStores implements INode {
 
             const astraConfig: AstraLibArgs = {
                 ...clientConfig,
-                collection: astraCollection ?? credentialData.collectionName ?? 'flowise_test',
+                collection: astraCollection ?? credentialData.collectionName ?? 'NEXORA_test',
                 collectionOptions: {
                     vector: {
                         dimension: vectorDimension ?? 1536,
@@ -161,7 +161,7 @@ class Astra_VectorStores implements INode {
 
         const astraConfig: AstraLibArgs = {
             ...clientConfig,
-            collection: astraCollection ?? credentialData.collectionName ?? 'flowise_test',
+            collection: astraCollection ?? credentialData.collectionName ?? 'NEXORA_test',
             collectionOptions: {
                 vector: {
                     dimension: vectorDimension ?? 1536,

@@ -1,7 +1,7 @@
 {
-    "name": "flowise-worker-healthcheck",
+    "name": "nexora-worker-healthcheck",
     "version": "1.0.0",
-    "description": "Simple healthcheck server for Flowise worker",
+    "description": "Simple healthcheck server for Nexora worker",
     "main": "healthcheck.js",
     "private": true,
     "scripts": {

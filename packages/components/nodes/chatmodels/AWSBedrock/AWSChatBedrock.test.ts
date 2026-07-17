@@ -7,7 +7,7 @@ import {
     _resetInferenceProfileCache,
     _resetStopSeqCache
 } from './utils'
-import { detectFormat } from './FlowiseAWSChatBedrockImported'
+import { detectFormat } from './NexoraAWSChatBedrockImported'
 
 // Mock the model loader to return models with inference_profile_geos and stop_sequences
 jest.mock('../../../src/modelLoader', () => ({
@@ -464,7 +464,7 @@ describe('BedrockChat error normalization wiring', () => {
 
     beforeAll(async () => {
         // Dynamic import to pick up the jest mock for modelLoader
-        const mod = await import('./FlowiseAWSChatBedrock')
+        const mod = await import('./NexoraAWSChatBedrock')
         BedrockChat = mod.BedrockChat
     })
 

@@ -16,8 +16,8 @@
         "noUnusedParameters": true,
         "noFallthroughCasesInSwitch": true,
         "paths": {
-            "@flowiseai/observe": ["../src/index.ts"],
-            "@flowiseai/observe/*": ["../src/*"]
+            "@nexora/observe": ["../src/index.ts"],
+            "@nexora/observe/*": ["../src/*"]
         }
     },
     "include": ["src", "*.tsx", "*.ts", "../src/**/*.ts", "../src/**/*.tsx"]

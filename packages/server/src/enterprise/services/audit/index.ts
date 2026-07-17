@@ -1,6 +1,6 @@
 import { StatusCodes } from 'http-status-codes'
 import { Between, In } from 'typeorm'
-import { InternalFlowiseError } from '../../../errors/internalFlowiseError'
+import { InternalNEXORAError } from '../../../errors/internalNexoraError'
 import { getErrorMessage } from '../../../errors/utils'
 import { Platform } from '../../../Interface'
 import { getRunningExpressApp } from '../../../utils/getRunningExpressApp'
@@ -61,10 +61,7 @@ const fetchLoginActivity = async (body: any) => {
             pageSize: PAGE_SIZE
         }
     } catch (error) {
-        throw new InternalFlowiseError(
-            StatusCodes.INTERNAL_SERVER_ERROR,
-            `Error: auditService.getLoginActivity - ${getErrorMessage(error)}`
-        )
+        throw new InternalNEXORAError(StatusCodes.INTERNAL_SERVER_ERROR, `Error: auditService.getLoginActivity - ${getErrorMessage(error)}`)
     }
 }
 
@@ -85,7 +82,7 @@ const recordLoginActivity = async (username: string, activityCode: LoginActivity
         const result = await appServer.AppDataSource.getRepository(LoginActivity).save(loginActivity)
         return result
     } catch (error) {
-        throw new InternalFlowiseError(StatusCodes.INTERNAL_SERVER_ERROR, `Error: authService.loginActivity - ${getErrorMessage(error)}`)
+        throw new InternalNEXORAError(StatusCodes.INTERNAL_SERVER_ERROR, `Error: authService.loginActivity - ${getErrorMessage(error)}`)
     }
 }
 

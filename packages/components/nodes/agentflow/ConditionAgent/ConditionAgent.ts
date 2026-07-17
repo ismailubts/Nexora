@@ -288,7 +288,7 @@ class ConditionAgent_Agentflow implements INode {
             const newLLMNodeInstance = new nodeModule.nodeClass()
             const newNodeData = {
                 ...nodeData,
-                credential: modelConfig['FLOWISE_CREDENTIAL_ID'],
+                credential: modelConfig['NEXORA_CREDENTIAL_ID'],
                 inputs: {
                     ...nodeData.inputs,
                     ...modelConfig

@@ -33,7 +33,7 @@ export interface PaletteRenderProps {
 // ============================================================================
 
 export interface AgentflowProps {
-    /** Flowise API server endpoint (e.g., "https://flowise-url.com") */
+    /** Nexora API server endpoint (e.g., "https://Nexora-url.com") */
     apiBaseUrl: string
 
     /** Authentication token for API calls */

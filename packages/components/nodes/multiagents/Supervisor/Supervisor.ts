@@ -8,11 +8,11 @@ import { z } from 'zod/v3'
 import { StructuredTool } from '@langchain/core/tools'
 import { AgentExecutor, JsonOutputToolsParser, ToolCallingAgentOutputParser } from '../../../src/agents'
 import { ChatMistralAI } from '@langchain/mistralai'
-import { ChatOpenAI } from '../../chatmodels/ChatOpenAI/FlowiseChatOpenAI'
-import { ChatAnthropic } from '../../chatmodels/ChatAnthropic/FlowiseChatAnthropic'
+import { ChatOpenAI } from '../../chatmodels/ChatOpenAI/NexoraChatOpenAI'
+import { ChatAnthropic } from '../../chatmodels/ChatAnthropic/NexoraChatAnthropic'
 import { addImagesToMessages, llmSupportsVision } from '../../../src/multiModalUtils'
-import { ChatGoogleGenerativeAI } from '../../chatmodels/ChatGoogleGenerativeAI/FlowiseChatGoogleGenerativeAI'
-import { AzureChatOpenAI } from '../../chatmodels/AzureChatOpenAI/FlowiseAzureChatOpenAI'
+import { ChatGoogleGenerativeAI } from '../../chatmodels/ChatGoogleGenerativeAI/NexoraChatGoogleGenerativeAI'
+import { AzureChatOpenAI } from '../../chatmodels/AzureChatOpenAI/NexoraAzureChatOpenAI'
 
 const sysPrompt = `You are a supervisor tasked with managing a conversation between the following workers: {team_members}.
 Given the following user request, respond with the worker to act next.

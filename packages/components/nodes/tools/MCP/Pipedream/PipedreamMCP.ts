@@ -115,7 +115,7 @@ class Pipedream_MCP implements INode {
                 name: 'externalUserId',
                 type: 'string',
                 description:
-                    'A unique identifier for your end user (e.g. email or user ID from your system). Supports Flowise variables (e.g. <code>{{$vars.user_email}}</code>) and flow variables (e.g. <code>{{$flow.sessionId}}</code>).',
+                    'A unique identifier for your end user (e.g. email or user ID from your system). Supports Nexora variables (e.g. <code>{{$vars.user_email}}</code>) and flow variables (e.g. <code>{{$flow.sessionId}}</code>).',
                 acceptVariable: true,
                 placeholder: '{{$vars.user_email}}'
             },
@@ -279,7 +279,7 @@ class Pipedream_MCP implements INode {
             }
             // For loadMethods context, use a sanitized fallback so tool listing still works.
             // The actual externalUserId will be resolved at runtime.
-            externalUserId = 'flowise_preview_user'
+            externalUserId = 'NEXORA_preview_user'
         }
 
         externalUserId = externalUserId.replace(/<[^>]*>/g, '').trim()

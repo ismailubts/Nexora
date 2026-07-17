@@ -1,4 +1,4 @@
-# @flowiseai/agentflow — Testing Guide
+# @nexora/agentflow — Testing Guide
 
 ## Running Tests
 

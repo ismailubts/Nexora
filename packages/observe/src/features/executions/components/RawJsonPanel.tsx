@@ -24,7 +24,7 @@ function onClipboardCopy(e: { src: unknown }) {
 
 /**
  * Raw JSON tree viewer used by NodeExecutionDetail's "Raw" tab. Wraps
- * `flowise-react-json-view` with the bordered frame + theme switch + a
+ * `Nexora-react-json-view` with the bordered frame + theme switch + a
  * pretty-printing clipboard handler.
  */
 export function RawJsonPanel({ src, isDarkMode }: RawJsonPanelProps) {

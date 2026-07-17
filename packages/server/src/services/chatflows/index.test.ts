@@ -52,11 +52,11 @@ jest.mock('../../database/entities/ScheduleRecord', () => ({
 }))
 jest.mock('../../enterprise/database/entities/workspace.entity', () => ({ Workspace: class Workspace {} }))
 jest.mock('../../enterprise/utils/ControllerServiceUtils', () => ({ getWorkspaceSearchOptions: jest.fn().mockReturnValue({}) }))
-jest.mock('../../errors/internalFlowiseError', () => ({
-    InternalFlowiseError: class InternalFlowiseError extends Error {
+jest.mock('../../errors/internalNexoraError', () => ({
+    InternalNEXORAError: class InternalNEXORAError extends Error {
         constructor(public statusCode: number, message: string) {
             super(message)
-            this.name = 'InternalFlowiseError'
+            this.name = 'InternalNEXORAError'
         }
     }
 }))
@@ -104,7 +104,7 @@ jest.mock('../../schedule/ScheduleBeat', () => ({
         })
     }
 }))
-jest.mock('flowise-components', () => ({ removeFolderFromStorage: jest.fn().mockResolvedValue({ totalSize: 0 }) }), { virtual: true })
+jest.mock('nexora-components', () => ({ removeFolderFromStorage: jest.fn().mockResolvedValue({ totalSize: 0 }) }), { virtual: true })
 jest.mock('uuid', () => ({ validate: jest.fn().mockReturnValue(true) }))
 jest.mock('http-status-codes', () => ({
     StatusCodes: { OK: 200, BAD_REQUEST: 400, NOT_FOUND: 404, INTERNAL_SERVER_ERROR: 500 }

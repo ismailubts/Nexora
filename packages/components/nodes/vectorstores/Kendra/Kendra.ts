@@ -3,7 +3,7 @@ import { AmazonKendraRetriever } from '@langchain/aws'
 import { KendraClient, BatchPutDocumentCommand, BatchDeleteDocumentCommand, KendraClientConfig } from '@aws-sdk/client-kendra'
 import { Document } from '@langchain/core/documents'
 import { ICommonObject, INode, INodeData, INodeOptionsValue, INodeOutputsValue, INodeParams, IndexingResult } from '../../../src/Interface'
-import { FLOWISE_CHATID, parseJsonBody } from '../../../src/utils'
+import { NEXORA_CHATID, parseJsonBody } from '../../../src/utils'
 import { getAWSCredentialConfig } from '../../../src/awsToolsUtils'
 import { howToUseFileUpload } from '../VectorStoreUtils'
 import { MODEL_TYPE, getRegions } from '../../../src/modelLoader'
@@ -134,7 +134,7 @@ class Kendra_VectorStores implements INode {
             for (let i = 0; i < flattenDocs.length; i += 1) {
                 if (flattenDocs[i] && flattenDocs[i].pageContent) {
                     if (isFileUploadEnabled && options.chatId) {
-                        flattenDocs[i].metadata = { ...flattenDocs[i].metadata, [FLOWISE_CHATID]: options.chatId }
+                        flattenDocs[i].metadata = { ...flattenDocs[i].metadata, [NEXORA_CHATID]: options.chatId }
                     }
                     finalDocs.push(new Document(flattenDocs[i]))
 
@@ -233,7 +233,7 @@ class Kendra_VectorStores implements INode {
                 ...(filter.OrAllFilters || []),
                 {
                     EqualsTo: {
-                        Key: FLOWISE_CHATID,
+                        Key: NEXORA_CHATID,
                         Value: {
                             StringValue: options.chatId
                         }

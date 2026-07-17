@@ -13,7 +13,7 @@ import {
     convertChatHistoryToText,
     generateFollowUpPrompts,
     tracingEnvEnabled
-} from 'flowise-components'
+} from 'nexora-components'
 import {
     IncomingAgentflowInput,
     INodeData,
@@ -61,7 +61,7 @@ import { Telemetry } from './telemetry'
 import { getWorkspaceSearchOptions } from '../enterprise/utils/ControllerServiceUtils'
 import { UsageCacheManager } from '../UsageCacheManager'
 import { generateTTSForResponseStream, shouldAutoPlayTTS } from './buildChatflow'
-import { InternalFlowiseError } from '../errors/internalFlowiseError'
+import { InternalNEXORAError } from '../errors/internalNexoraError'
 import { StatusCodes } from 'http-status-codes'
 
 interface IWaitingNode {
@@ -1603,13 +1603,13 @@ export const executeAgentFlow = async ({
     if (!isRecursive) {
         if (startInputType === 'webhookTrigger' && chatType !== ChatType.WEBHOOK) {
             const configuredMethod = ((startNode?.data?.inputs?.webhookMethod as string) || 'POST').toUpperCase()
-            throw new InternalFlowiseError(
+            throw new InternalNEXORAError(
                 StatusCodes.BAD_REQUEST,
                 `This flow is configured as a Webhook Trigger. Call ${configuredMethod} /api/v1/webhook/${chatflowid} instead of the prediction API.`
             )
         }
         if (startInputType === 'scheduleInput' && chatType !== ChatType.SCHEDULED) {
-            throw new InternalFlowiseError(
+            throw new InternalNEXORAError(
                 StatusCodes.BAD_REQUEST,
                 `This flow is configured as a Scheduled Trigger. It is fired by the scheduler and cannot be invoked via the API. Change the Start node Input Type to Chat or Form to call it from the prediction API.`
             )

@@ -1,4 +1,4 @@
-import { BedrockImportedChat, detectFormat, getImportedModelInfo, _resetModelInfoCache } from './FlowiseAWSChatBedrockImported'
+import { BedrockImportedChat, detectFormat, getImportedModelInfo, _resetModelInfoCache } from './NexoraAWSChatBedrockImported'
 import { HumanMessage, SystemMessage, AIMessage, ToolMessage } from '@langchain/core/messages'
 
 // ---------------------------------------------------------------------------

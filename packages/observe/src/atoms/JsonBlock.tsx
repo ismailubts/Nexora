@@ -53,7 +53,7 @@ const DEFAULT_MAX_HEIGHT = 400
 /**
  * Flat syntax-highlighted JSON pre-block. Used for inline (non-raw) JSON
  * content — Input/Output bubbles for HTTP/form/structured nodes. The
- * interactive tree-view `flowise-react-json-view` is reserved for the Raw view
+ * interactive tree-view `Nexora-react-json-view` is reserved for the Raw view
  * where collapse/expand is useful.
  */
 export function JsonBlock({ value, isDarkMode, maxHeight = DEFAULT_MAX_HEIGHT }: JsonBlockProps) {

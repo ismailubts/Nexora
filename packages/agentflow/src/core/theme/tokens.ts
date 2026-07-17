@@ -10,7 +10,7 @@
  *
  * Base palette and node type colors are duplicated in
  * packages/observe/src/core/theme/tokens.ts — keep in sync until
- * extracted to packages/shared-ui in FLOWISE-628. Agentflow extends
+ * extracted to packages/shared-ui in Nexora-628. Agentflow extends
  * the shared base with ReactFlow + syntax highlight tokens, which stay here.
  */
 

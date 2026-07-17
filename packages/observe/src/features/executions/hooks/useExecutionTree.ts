@@ -2,14 +2,14 @@ import { useMemo } from 'react'
 
 import type { ExecutionState, ExecutionTreeNode, NodeExecutionData } from '@/core/types'
 
-const FLOWISE_CREDENTIAL_ID = 'FLOWISE_CREDENTIAL_ID'
+const NEXORA_CREDENTIAL_ID = 'NEXORA_CREDENTIAL_ID'
 
-/** Recursively delete `FLOWISE_CREDENTIAL_ID` keys from `data` (mutates in place). */
+/** Recursively delete `NEXORA_CREDENTIAL_ID` keys from `data` (mutates in place). */
 function scrubCredentialIds(data: unknown): void {
     if (!data || typeof data !== 'object') return
     const obj = data as Record<string, unknown>
     for (const key of Object.keys(obj)) {
-        if (key === FLOWISE_CREDENTIAL_ID) {
+        if (key === NEXORA_CREDENTIAL_ID) {
             delete obj[key]
             continue
         }
@@ -57,7 +57,7 @@ export function useExecutionTree(executionDataJson: string | null): ExecutionTre
         if (!Array.isArray(nodes) || nodes.length === 0) return []
 
         // PARITY: legacy buildTreeData (ExecutionDetails.jsx:371-383) recursively
-        // strips `FLOWISE_CREDENTIAL_ID` keys from each node's `data`. The list
+        // strips `NEXORA_CREDENTIAL_ID` keys from each node's `data`. The list
         // and detail server endpoints don't redact (only the public endpoint
         // does), so we scrub here before exposing `raw` on tree nodes.
         nodes.forEach((n) => scrubCredentialIds(n.data))

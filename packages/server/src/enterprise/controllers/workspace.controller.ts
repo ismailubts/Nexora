@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express'
 import { StatusCodes } from 'http-status-codes'
 import { QueryRunner } from 'typeorm'
-import { InternalFlowiseError } from '../../errors/internalFlowiseError'
+import { InternalNEXORAError } from '../../errors/internalNexoraError'
 import { GeneralErrorMessage } from '../../utils/constants'
 import { getRunningExpressApp } from '../../utils/getRunningExpressApp'
 import { OrganizationUserStatus } from '../database/entities/organization-user.entity'
@@ -20,7 +20,7 @@ import { assertQueryOrganizationMatchesActiveOrg, assertWorkspaceIdAccessibleToU
 export class WorkspaceController {
     public async create(req: Request, res: Response, next: NextFunction) {
         try {
-            if (!req.user) throw new InternalFlowiseError(StatusCodes.UNAUTHORIZED, GeneralErrorMessage.UNAUTHORIZED)
+            if (!req.user) throw new InternalNEXORAError(StatusCodes.UNAUTHORIZED, GeneralErrorMessage.UNAUTHORIZED)
 
             req.body.organizationId = req.user.activeOrganizationId
             req.body.createdBy = req.user.id
@@ -62,7 +62,7 @@ export class WorkspaceController {
                     workspace = workspace.filter((w) => allowed.has(w.id))
                 }
             } else {
-                throw new InternalFlowiseError(StatusCodes.BAD_REQUEST, GeneralErrorMessage.UNHANDLED_EDGE_CASE)
+                throw new InternalNEXORAError(StatusCodes.BAD_REQUEST, GeneralErrorMessage.UNHANDLED_EDGE_CASE)
             }
 
             return res.status(StatusCodes.OK).json(workspace)
@@ -75,7 +75,7 @@ export class WorkspaceController {
 
     public async switchWorkspace(req: Request, res: Response, next: NextFunction) {
         if (!req.user) {
-            return next(new InternalFlowiseError(StatusCodes.UNAUTHORIZED, `Unauthorized: User not found`))
+            return next(new InternalNEXORAError(StatusCodes.UNAUTHORIZED, `Unauthorized: User not found`))
         }
         let queryRunner
         try {
@@ -86,15 +86,15 @@ export class WorkspaceController {
 
             const workspaceService = new WorkspaceService()
             const workspace = await workspaceService.readWorkspaceById(query.id, queryRunner)
-            if (!workspace) throw new InternalFlowiseError(StatusCodes.NOT_FOUND, WorkspaceErrorMessage.WORKSPACE_NOT_FOUND)
+            if (!workspace) throw new InternalNEXORAError(StatusCodes.NOT_FOUND, WorkspaceErrorMessage.WORKSPACE_NOT_FOUND)
 
             const userService = new UserService()
             const user = await userService.readUserById(req.user.id, queryRunner)
-            if (!user) throw new InternalFlowiseError(StatusCodes.NOT_FOUND, UserErrorMessage.USER_NOT_FOUND)
+            if (!user) throw new InternalNEXORAError(StatusCodes.NOT_FOUND, UserErrorMessage.USER_NOT_FOUND)
 
             const workspaceUserService = new WorkspaceUserService()
             const { workspaceUser } = await workspaceUserService.readWorkspaceUserByWorkspaceIdUserId(query.id, req.user.id, queryRunner)
-            if (!workspaceUser) throw new InternalFlowiseError(StatusCodes.NOT_FOUND, WorkspaceUserErrorMessage.WORKSPACE_USER_NOT_FOUND)
+            if (!workspaceUser) throw new InternalNEXORAError(StatusCodes.NOT_FOUND, WorkspaceUserErrorMessage.WORKSPACE_USER_NOT_FOUND)
             workspaceUser.lastLogin = new Date().toISOString()
             workspaceUser.status = WorkspaceUserStatus.ACTIVE
             workspaceUser.updatedBy = user.id
@@ -107,7 +107,7 @@ export class WorkspaceController {
                 queryRunner
             )
             if (!organizationUser)
-                throw new InternalFlowiseError(StatusCodes.NOT_FOUND, OrganizationUserErrorMessage.ORGANIZATION_USER_NOT_FOUND)
+                throw new InternalNEXORAError(StatusCodes.NOT_FOUND, OrganizationUserErrorMessage.ORGANIZATION_USER_NOT_FOUND)
             organizationUser.status = OrganizationUserStatus.ACTIVE
             organizationUser.updatedBy = user.id
             await organizationUserService.saveOrganizationUser(organizationUser, queryRunner)
@@ -115,11 +115,11 @@ export class WorkspaceController {
             const roleService = new RoleService()
             const ownerRole = await roleService.readGeneralRoleByName(GeneralRole.OWNER, queryRunner)
             const role = await roleService.readRoleById(workspaceUser.roleId, queryRunner)
-            if (!role) throw new InternalFlowiseError(StatusCodes.NOT_FOUND, RoleErrorMessage.ROLE_NOT_FOUND)
+            if (!role) throw new InternalNEXORAError(StatusCodes.NOT_FOUND, RoleErrorMessage.ROLE_NOT_FOUND)
 
             const orgService = new OrganizationService()
             const org = await orgService.readOrganizationById(organizationUser.organizationId, queryRunner)
-            if (!org) throw new InternalFlowiseError(StatusCodes.NOT_FOUND, OrganizationErrorMessage.ORGANIZATION_NOT_FOUND)
+            if (!org) throw new InternalNEXORAError(StatusCodes.NOT_FOUND, OrganizationErrorMessage.ORGANIZATION_NOT_FOUND)
             const subscriptionId = org.subscriptionId as string
             const customerId = org.customerId as string
             const features = await getRunningExpressApp().identityManager.getFeaturesByPlan(subscriptionId)
@@ -166,7 +166,7 @@ export class WorkspaceController {
             }
 
             req.session.save((err) => {
-                if (err) throw new InternalFlowiseError(StatusCodes.BAD_REQUEST, GeneralErrorMessage.UNHANDLED_EDGE_CASE)
+                if (err) throw new InternalNEXORAError(StatusCodes.BAD_REQUEST, GeneralErrorMessage.UNHANDLED_EDGE_CASE)
             })
 
             await queryRunner.commitTransaction()
@@ -185,7 +185,7 @@ export class WorkspaceController {
 
     public async update(req: Request, res: Response, next: NextFunction) {
         try {
-            if (!req.user) throw new InternalFlowiseError(StatusCodes.UNAUTHORIZED, GeneralErrorMessage.UNAUTHORIZED)
+            if (!req.user) throw new InternalNEXORAError(StatusCodes.UNAUTHORIZED, GeneralErrorMessage.UNAUTHORIZED)
 
             req.body.organizationId = req.user.activeOrganizationId
             req.body.updatedBy = req.user.id
@@ -201,13 +201,13 @@ export class WorkspaceController {
     public async delete(req: Request, res: Response, next: NextFunction) {
         let queryRunner: QueryRunner | undefined
         try {
-            if (!req.user) throw new InternalFlowiseError(StatusCodes.UNAUTHORIZED, GeneralErrorMessage.UNAUTHORIZED)
+            if (!req.user) throw new InternalNEXORAError(StatusCodes.UNAUTHORIZED, GeneralErrorMessage.UNAUTHORIZED)
 
             queryRunner = getRunningExpressApp().AppDataSource.createQueryRunner()
             await queryRunner.connect()
             const workspaceId = req.params.id
             if (!workspaceId) {
-                throw new InternalFlowiseError(StatusCodes.BAD_REQUEST, WorkspaceErrorMessage.INVALID_WORKSPACE_ID)
+                throw new InternalNEXORAError(StatusCodes.BAD_REQUEST, WorkspaceErrorMessage.INVALID_WORKSPACE_ID)
             }
             const workspaceService = new WorkspaceService()
             await queryRunner.startTransaction()
@@ -227,7 +227,7 @@ export class WorkspaceController {
     public async getSharedWorkspacesForItem(req: Request, res: Response, next: NextFunction) {
         try {
             if (typeof req.params === 'undefined' || !req.params.id) {
-                throw new InternalFlowiseError(StatusCodes.BAD_REQUEST, WorkspaceErrorMessage.INVALID_WORKSPACE_ID)
+                throw new InternalNEXORAError(StatusCodes.BAD_REQUEST, WorkspaceErrorMessage.INVALID_WORKSPACE_ID)
             }
             const workspaceService = new WorkspaceService()
             return res.json(await workspaceService.getSharedWorkspacesForItem(req.params.id))
@@ -239,16 +239,16 @@ export class WorkspaceController {
     public async setSharedWorkspacesForItem(req: Request, res: Response, next: NextFunction) {
         try {
             if (!req.user) {
-                throw new InternalFlowiseError(StatusCodes.UNAUTHORIZED, `Unauthorized: User not found`)
+                throw new InternalNEXORAError(StatusCodes.UNAUTHORIZED, `Unauthorized: User not found`)
             }
             if (typeof req.params === 'undefined' || !req.params.id) {
-                throw new InternalFlowiseError(
+                throw new InternalNEXORAError(
                     StatusCodes.UNAUTHORIZED,
                     `Error: workspaceController.setSharedWorkspacesForItem - id not provided!`
                 )
             }
             if (!req.body) {
-                throw new InternalFlowiseError(
+                throw new InternalNEXORAError(
                     StatusCodes.PRECONDITION_FAILED,
                     `Error: workspaceController.setSharedWorkspacesForItem - body not provided!`
                 )

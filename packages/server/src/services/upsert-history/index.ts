@@ -2,7 +2,7 @@ import { MoreThanOrEqual, LessThanOrEqual, Between, In, QueryRunner } from 'type
 import { StatusCodes } from 'http-status-codes'
 import { getRunningExpressApp } from '../../utils/getRunningExpressApp'
 import { UpsertHistory } from '../../database/entities/UpsertHistory'
-import { InternalFlowiseError } from '../../errors/internalFlowiseError'
+import { InternalNEXORAError } from '../../errors/internalNexoraError'
 import { getErrorMessage } from '../../errors/utils'
 import chatflowsService from '../chatflows'
 
@@ -44,7 +44,7 @@ const getAllUpsertHistory = async (
 
         return upsertHistory
     } catch (error) {
-        throw new InternalFlowiseError(
+        throw new InternalNEXORAError(
             StatusCodes.INTERNAL_SERVER_ERROR,
             `Error: upsertHistoryServices.getAllUpsertHistory - ${getErrorMessage(error)}`
         )
@@ -55,7 +55,7 @@ const patchDeleteUpsertHistory = async (ids: string[] = [], workspaceId: string)
     try {
         const uniqueIds = [...new Set((ids ?? []).filter((id) => typeof id === 'string' && id.length > 0))]
         if (uniqueIds.length === 0) {
-            throw new InternalFlowiseError(
+            throw new InternalNEXORAError(
                 StatusCodes.BAD_REQUEST,
                 'Error: upsertHistoryServices.patchDeleteUpsertHistory - ids are required!'
             )
@@ -74,7 +74,7 @@ const patchDeleteUpsertHistory = async (ids: string[] = [], workspaceId: string)
                 select: ['id', 'chatflowid']
             })
             if (rows.length !== uniqueIds.length) {
-                throw new InternalFlowiseError(
+                throw new InternalNEXORAError(
                     StatusCodes.NOT_FOUND,
                     'Error: upsertHistoryServices.patchDeleteUpsertHistory - one or more upsert history records were not found!'
                 )
@@ -93,10 +93,10 @@ const patchDeleteUpsertHistory = async (ids: string[] = [], workspaceId: string)
             if (queryRunner && !queryRunner.isReleased) await queryRunner.release()
         }
     } catch (error) {
-        if (error instanceof InternalFlowiseError) {
+        if (error instanceof InternalNEXORAError) {
             throw error
         }
-        throw new InternalFlowiseError(
+        throw new InternalNEXORAError(
             StatusCodes.INTERNAL_SERVER_ERROR,
             `Error: upsertHistoryServices.patchDeleteUpsertHistory - ${getErrorMessage(error)}`
         )

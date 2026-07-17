@@ -7,8 +7,8 @@
 
 import { useRef, useState } from 'react'
 
-import type { AgentFlowInstance, FlowData, HeaderRenderProps, PaletteRenderProps } from '@flowiseai/agentflow'
-import { Agentflow } from '@flowiseai/agentflow'
+import type { AgentFlowInstance, FlowData, HeaderRenderProps, PaletteRenderProps } from '@nexora/agentflow'
+import { Agentflow } from '@nexora/agentflow'
 
 import { apiBaseUrl, token } from '../config'
 

@@ -1,34 +1,34 @@
 <!-- markdownlint-disable MD030 -->
 
 <p align="center">
-<img src="https://github.com/FlowiseAI/Flowise/blob/main/images/flowise_white.svg#gh-light-mode-only">
-<img src="https://github.com/FlowiseAI/Flowise/blob/main/images/flowise_dark.svg#gh-dark-mode-only">
+<img src="https://github.com/ismailubts/Nexora/blob/main/images/Nexora_white.svg#gh-light-mode-only">
+<img src="https://github.com/ismailubts/Nexora/blob/main/images/Nexora_dark.svg#gh-dark-mode-only">
 </p>
 
-[![Release Notes](https://img.shields.io/github/release/FlowiseAI/Flowise)](https://github.com/FlowiseAI/Flowise/releases)
-[![Discord](https://img.shields.io/discord/1087698854775881778?label=Discord&logo=discord)](https://discord.gg/jbaHfsRVBW)
-[![Twitter Follow](https://img.shields.io/twitter/follow/FlowiseAI?style=social)](https://twitter.com/FlowiseAI)
-[![GitHub star chart](https://img.shields.io/github/stars/FlowiseAI/Flowise?style=social)](https://star-history.com/#FlowiseAI/Flowise)
-[![GitHub fork](https://img.shields.io/github/forks/FlowiseAI/Flowise?style=social)](https://github.com/FlowiseAI/Flowise/fork)
+<div align="center">
 
-[English](../README.md) | [繁體中文](./README-TW.md) | [简体中文](./README-ZH.md) | 日本語 | [한국어](./README-KR.md)
+[![Release Notes](https://img.shields.io/github/release/ismailubts/Nexora)](https://github.com/ismailubts/Nexora/releases)
+
+[English](../README.md) | 繁體中文 | [简体中文](./README-ZH.md) | [日本語](./README-JA.md) | [한국어](./README-KR.md)
+
+</div>
 
 <h3>AIエージェントをビジュアルに構築</h3>
-<a href="https://github.com/FlowiseAI/Flowise">
-<img width="100%" src="https://github.com/FlowiseAI/Flowise/blob/main/images/flowise_agentflow.gif?raw=true"></a>
+<a href="https://github.com/ismailubts/Nexora">
+<img width="100%" src="https://github.com/ismailubts/Nexora/blob/main/images/Nexora_agentflow.gif?raw=true"></a>
 
 ## ⚡ クイックスタート
 
 [NodeJS](https://nodejs.org/en/download) >= 20.0.0 をダウンロードしてインストール
 
-1. Flowise のインストール
+1. Nexora のインストール
     ```bash
-    npm install -g flowise
+    npm install -g nexora
     ```
-2. Flowise の実行
+2. Nexora の実行
 
     ```bash
-    npx flowise start
+    npx nexora start
     ```
 
 3. [http://localhost:3000](http://localhost:3000) を開く
@@ -47,26 +47,27 @@
 
 1. ローカルにイメージを構築する:
     ```bash
-    docker build --no-cache -t flowise .
+    docker build --no-cache -t nexora .
     ```
 2. image を実行:
 
     ```bash
-    docker run -d --name flowise -p 3000:3000 flowise
+    docker run -d --name nexora -p 3000:3000 nexora
     ```
 
 3. image を停止:
     ```bash
-    docker stop flowise
+    docker stop nexora
     ```
 
-## 👨‍💻 開発者向け
+## 🛠 セットアップ
 
-Flowise には、3 つの異なるモジュールが 1 つの mono リポジトリにあります。
+Nexora には、単一の mono リポジトリに複数のモジュールがあります。
 
 -   `server`: API ロジックを提供する Node バックエンド
 -   `ui`: React フロントエンド
 -   `components`: サードパーティノードとの統合
+-   `api-documentation`: express から自動生成される swagger-ui API ドキュメント
 
 ### 必須条件
 
@@ -80,13 +81,13 @@ Flowise には、3 つの異なるモジュールが 1 つの mono リポジト�
 1. リポジトリをクローン
 
     ```bash
-    git clone https://github.com/FlowiseAI/Flowise.git
+    git clone https://github.com/ismailubts/Nexora.git
     ```
 
 2. リポジトリフォルダに移動
 
     ```bash
-    cd Flowise
+    cd Nexora
     ```
 
 3. すべてのモジュールの依存関係をインストール:
@@ -123,68 +124,14 @@ Flowise には、3 つの異なるモジュールが 1 つの mono リポジト�
 
 ## 🌱 環境変数
 
-Flowise は、インスタンスを設定するためのさまざまな環境変数をサポートしています。`packages/server` フォルダ内の `.env` ファイルで以下の変数を指定することができる。[続き](https://github.com/FlowiseAI/Flowise/blob/main/CONTRIBUTING.md#-env-variables)を読む
-
-## 📖 ドキュメント
-
-[Flowise ドキュメント](https://docs.flowiseai.com/)
-
-## 🌐 セルフホスト
-
-お客様の既存インフラに Flowise をセルフホストでデプロイ、様々な[デプロイ](https://docs.flowiseai.com/configuration/deployment)をサポートします
-
--   [AWS](https://docs.flowiseai.com/deployment/aws)
--   [Azure](https://docs.flowiseai.com/deployment/azure)
--   [Digital Ocean](https://docs.flowiseai.com/deployment/digital-ocean)
--   [GCP](https://docs.flowiseai.com/deployment/gcp)
--   <details>
-      <summary>その他</summary>
-
-    -   [Railway](https://docs.flowiseai.com/deployment/railway)
-
-        [![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/template/pn4G8S?referralCode=WVNPD9)
-
-    -   [Render](https://docs.flowiseai.com/deployment/render)
-
-        [![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://docs.flowiseai.com/deployment/render)
-
-    -   [Hugging Face Spaces](https://docs.flowiseai.com/configuration/deployment/hugging-face)
-
-        <a href="https://huggingface.co/spaces/FlowiseAI/Flowise"><img src="https://huggingface.co/datasets/huggingface/badges/raw/main/open-in-hf-spaces-sm.svg" alt="Hugging Face Spaces"></a>
-
-    -   [Elestio](https://elest.io/open-source/flowiseai)
-
-        [![Deploy](https://pub-da36157c854648669813f3f76c526c2b.r2.dev/deploy-on-elestio-black.png)](https://elest.io/open-source/flowiseai)
-
-    -   [Sealos](https://cloud.sealos.io/?openapp=system-template%3FtemplateName%3Dflowise)
-
-        [![](https://raw.githubusercontent.com/labring-actions/templates/main/Deploy-on-Sealos.svg)](https://cloud.sealos.io/?openapp=system-template%3FtemplateName%3Dflowise)
-
-    -   [RepoCloud](https://repocloud.io/details/?app_id=29)
-
-        [![Deploy on RepoCloud](https://d16t0pc4846x52.cloudfront.net/deploy.png)](https://repocloud.io/details/?app_id=29)
-
-      </details>
-
-## ☁️ クラウドホスト
-
-[Flowise Cloud の使い方を始める](https://flowiseai.com/)
-
-## 🙋 サポート
-
-ご質問、問題提起、新機能のご要望は、[discussion](https://github.com/FlowiseAI/Flowise/discussions)までお気軽にどうぞ
-
-## 🙌 コントリビュート
-
-これらの素晴らしい貢献者に感謝します
-
-<a href="https://github.com/FlowiseAI/Flowise/graphs/contributors">
-<img src="https://contrib.rocks/image?repo=FlowiseAI/Flowise" />
-</a>
-
-[コントリビューティングガイド](../CONTRIBUTING.md)を参照してください。質問や問題があれば、[Discord](https://discord.gg/jbaHfsRVBW) までご連絡ください。
-[![Star History Chart](https://api.star-history.com/svg?repos=FlowiseAI/Flowise&type=Timeline)](https://star-history.com/#FlowiseAI/Flowise&Date)
+Nexora は、インスタンスを設定するためのさまざまな環境変数をサポートしています。`packages/server` フォルダ内の `.env` ファイルで変数を指定できます。`packages/server/.env.example` を参照してください。
 
 ## 📄 ライセンス
 
-このリポジトリのソースコードは、[Apache License Version 2.0](../LICENSE.md)の下で利用可能です。
+Copyright (c) Abdul Ismail. All rights reserved.
+
+本ソフトウェアの全部または一部を、Abdul Ismail の事前の書面による許可なく、複製、改変、配布、または使用することは禁止されています。
+
+詳細は [LICENSE.md](../LICENSE.md) を参照してください。
+
+リポジトリ: [https://github.com/ismailubts/Nexora](https://github.com/ismailubts/Nexora)

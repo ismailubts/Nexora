@@ -57,7 +57,7 @@ const PricingDialog = ({ open, onClose }) => {
 
     const handlePlanClick = async (plan) => {
         if (plan.title === 'Enterprise') {
-            window.location.href = 'mailto:hello@flowiseai.com'
+            window.location.href = 'mailto:ismailubts@users.noreply.github.com'
             return
         }
 

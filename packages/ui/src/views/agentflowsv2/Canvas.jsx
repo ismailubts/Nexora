@@ -59,7 +59,7 @@ import useNotifier from '@/utils/useNotifier'
 import { usePrompt } from '@/utils/usePrompt'
 
 // const
-import { FLOWISE_CREDENTIAL_ID, AGENTFLOW_ICONS } from '@/store/constant'
+import { NEXORA_CREDENTIAL_ID, AGENTFLOW_ICONS } from '@/store/constant'
 
 const nodeTypes = { agentFlow: CanvasNode, stickyNote: StickyNote, iteration: IterationNode }
 const edgeTypes = { agentFlow: AgentFlowEdge }
@@ -220,9 +220,9 @@ const AgentflowCanvas = () => {
         if (reactFlowInstance) {
             const nodes = reactFlowInstance.getNodes().map((node) => {
                 const nodeData = cloneDeep(node.data)
-                if (Object.prototype.hasOwnProperty.call(nodeData.inputs, FLOWISE_CREDENTIAL_ID)) {
-                    nodeData.credential = nodeData.inputs[FLOWISE_CREDENTIAL_ID]
-                    nodeData.inputs = omit(nodeData.inputs, [FLOWISE_CREDENTIAL_ID])
+                if (Object.prototype.hasOwnProperty.call(nodeData.inputs, NEXORA_CREDENTIAL_ID)) {
+                    nodeData.credential = nodeData.inputs[NEXORA_CREDENTIAL_ID]
+                    nodeData.inputs = omit(nodeData.inputs, [NEXORA_CREDENTIAL_ID])
                 }
                 node.data = {
                     ...nodeData,

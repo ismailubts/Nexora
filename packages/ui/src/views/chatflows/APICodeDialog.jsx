@@ -921,7 +921,7 @@ formData.append("openAIApiKey[openAIEmbeddings_0]", "sk-my-openai-2nd-key")`
                                                             <a
                                                                 rel='noreferrer'
                                                                 target='_blank'
-                                                                href='https://docs.flowiseai.com/using-flowise/prediction#configuration-override'
+                                                                href='https://github.com/ismailubts/Nexora/using-Nexora/prediction#configuration-override'
                                                             >
                                                                 here
                                                             </a>{' '}
@@ -1073,7 +1073,7 @@ formData.append("openAIApiKey[openAIEmbeddings_0]", "sk-my-openai-2nd-key")`
                                                 <a
                                                     rel='noreferrer'
                                                     target='_blank'
-                                                    href='https://docs.flowiseai.com/using-flowise/streaming'
+                                                    href='https://github.com/ismailubts/Nexora/using-Nexora/streaming'
                                                 >
                                                     here
                                                 </a>

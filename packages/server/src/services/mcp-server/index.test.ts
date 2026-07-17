@@ -6,7 +6,7 @@
  * toolName validation, and parseMcpConfig.
  */
 import { StatusCodes } from 'http-status-codes'
-import { InternalFlowiseError } from '../../errors/internalFlowiseError'
+import { InternalNEXORAError } from '../../errors/internalNexoraError'
 
 // Mock typeorm decorators before any entity import (virtual: true for pnpm resolution)
 jest.mock(
@@ -109,7 +109,7 @@ describe('mcpServerService', () => {
 
         it('throws NOT_FOUND when chatflow does not exist', async () => {
             mockFindOne.mockResolvedValue(null)
-            await expect(mcpServerService.getMcpServerConfig('no-such', 'ws-1')).rejects.toThrow(InternalFlowiseError)
+            await expect(mcpServerService.getMcpServerConfig('no-such', 'ws-1')).rejects.toThrow(InternalNEXORAError)
             await expect(mcpServerService.getMcpServerConfig('no-such', 'ws-1')).rejects.toMatchObject({
                 statusCode: StatusCodes.NOT_FOUND
             })
