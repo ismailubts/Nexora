@@ -101,7 +101,7 @@ describe('ChatMessageBubble', () => {
                 message={{
                     role: 'user',
                     name: 'research_agent',
-                    content: 'PR 6226 in flowise ai repo',
+                    content: 'PR 6226 in Nexora ai repo',
                     additional_kwargs: {
                         usedTools: [{ tool: 'search_repositories' }, { tool: 'get_issue' }]
                     }
@@ -126,7 +126,7 @@ describe('ChatMessageBubble', () => {
                 message={{
                     role: 'assistant',
                     content: '',
-                    tool_calls: [{ name: 'search_repositories', args: { query: 'Flowise AI' }, id: 'abc' }]
+                    tool_calls: [{ name: 'search_repositories', args: { query: 'Nexora AI' }, id: 'abc' }]
                 }}
                 isDarkMode={false}
             />
@@ -143,7 +143,7 @@ describe('ChatMessageBubble', () => {
                     content: [
                         {
                             type: 'functionCall',
-                            functionCall: { name: 'search_repositories', args: { query: 'Flowise AI' }, id: 'abc' }
+                            functionCall: { name: 'search_repositories', args: { query: 'Nexora AI' }, id: 'abc' }
                         }
                     ]
                 }}

@@ -1,7 +1,7 @@
 /**
  * OAuth2 Authorization Code Flow Implementation
  *
- * This module implements a complete OAuth2 authorization code flow for Flowise credentials.
+ * This module implements a complete OAuth2 authorization code flow for Nexora credentials.
  * It supports Microsoft Graph and other OAuth2 providers.
  *
  * CREDENTIAL DATA STRUCTURE:
@@ -58,12 +58,12 @@
 
 import axios from 'axios'
 import express, { NextFunction, Request, Response } from 'express'
-import { secureAxiosRequest } from 'flowise-components'
+import { secureAxiosRequest } from 'nexora-components'
 import { StatusCodes } from 'http-status-codes'
 import { Credential } from '../../database/entities/Credential'
 import { WorkspaceShared } from '../../enterprise/database/entities/EnterpriseEntities'
 import { getActiveWorkspaceIdForRequest } from '../../enterprise/utils/tenantRequestGuards'
-import { InternalFlowiseError } from '../../errors/internalFlowiseError'
+import { InternalNEXORAError } from '../../errors/internalNexoraError'
 import { decryptCredentialData, encryptCredentialData } from '../../utils'
 import { getRunningExpressApp } from '../../utils/getRunningExpressApp'
 import { extractOAuth2TokenFields, validateOAuth2Url } from '../../utils/oauth2Security'
@@ -97,7 +97,7 @@ router.post('/authorize/:credentialId', async (req: Request, res: Response, next
         }
 
         if (!credential) {
-            return next(new InternalFlowiseError(StatusCodes.NOT_FOUND, 'Credential not found'))
+            return next(new InternalNEXORAError(StatusCodes.NOT_FOUND, 'Credential not found'))
         }
 
         // Decrypt the credential data to get OAuth configuration
@@ -165,11 +165,11 @@ router.post('/authorize/:credentialId', async (req: Request, res: Response, next
             redirectUri: finalRedirectUri
         })
     } catch (error) {
-        if (error instanceof InternalFlowiseError) {
+        if (error instanceof InternalNEXORAError) {
             return next(error)
         }
         next(
-            new InternalFlowiseError(
+            new InternalNEXORAError(
                 StatusCodes.INTERNAL_SERVER_ERROR,
                 `OAuth2 authorization error: ${error instanceof Error ? error.message : 'Unknown error'}`
             )
@@ -465,7 +465,7 @@ router.post('/refresh/:credentialId', async (req: Request, res: Response, next: 
         }
 
         next(
-            new InternalFlowiseError(
+            new InternalNEXORAError(
                 StatusCodes.INTERNAL_SERVER_ERROR,
                 `OAuth2 token refresh error: ${error instanceof Error ? error.message : 'Unknown error'}`
             )

@@ -187,7 +187,7 @@ class FirecrawlApp {
         try {
             const parameters = {
                 ...validParams,
-                integration: 'flowise'
+                integration: 'Nexora'
             }
             const response: AxiosResponse = await this.postRequest(this.apiUrl + '/v1/scrape', parameters, headers)
             if (response.status === 200) {
@@ -289,7 +289,7 @@ class FirecrawlApp {
         try {
             const parameters = {
                 ...validParams,
-                integration: 'flowise'
+                integration: 'Nexora'
             }
             const response: AxiosResponse = await this.postRequest(this.apiUrl + '/v1/crawl', parameters, headers)
             if (response.status === 200) {
@@ -401,7 +401,7 @@ class FirecrawlApp {
         try {
             const parameters = {
                 ...validParams,
-                integration: 'flowise'
+                integration: 'Nexora'
             }
             const response: AxiosResponse = await this.postRequest(this.apiUrl + '/v1/extract', parameters, headers)
             if (response.status === 200) {
@@ -440,7 +440,7 @@ class FirecrawlApp {
         try {
             const parameters = {
                 ...validParams,
-                integration: 'flowise'
+                integration: 'Nexora'
             }
             const response: AxiosResponse = await this.postRequest(this.apiUrl + '/v1/search', parameters, headers)
             if (response.status === 200) {
@@ -686,7 +686,7 @@ export class FireCrawlLoader extends BaseDocumentLoader {
     }
 }
 
-// Flowise Node Class
+// Nexora Node Class
 class FireCrawl_DocumentLoaders implements INode {
     label: string
     name: string
@@ -755,7 +755,7 @@ class FireCrawl_DocumentLoaders implements INode {
                 name: 'url',
                 type: 'string',
                 description: 'URL to be crawled/scraped/extracted',
-                placeholder: 'https://docs.flowiseai.com',
+                placeholder: 'https://github.com/ismailubts/Nexora',
                 optional: true,
                 show: {
                     crawlerType: ['crawl', 'scrape', 'extract']

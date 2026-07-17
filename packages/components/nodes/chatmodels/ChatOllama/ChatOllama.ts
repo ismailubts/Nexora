@@ -3,7 +3,7 @@ import { BaseChatModelParams } from '@langchain/core/language_models/chat_models
 import { BaseCache } from '@langchain/core/caches'
 import { ICommonObject, IMultiModalOption, INode, INodeData, INodeParams } from '../../../src/Interface'
 import { getBaseClasses, getCredentialData, getCredentialParam } from '../../../src/utils'
-import { ChatOllama } from './FlowiseChatOllama'
+import { ChatOllama } from './NexoraChatOllama'
 import { checkDenyList } from '../../../src/httpSecurity'
 
 class ChatOllama_ChatModels implements INode {
@@ -76,7 +76,7 @@ class ChatOllama_ChatModels implements INode {
                 name: 'allowImageUploads',
                 type: 'boolean',
                 description:
-                    'Allow image input. Refer to the <a href="https://docs.flowiseai.com/using-flowise/uploads#image" target="_blank">docs</a> for more details.',
+                    'Allow image input. Refer to the <a href="https://github.com/ismailubts/Nexora/using-Nexora/uploads#image" target="_blank">docs</a> for more details.',
                 default: false,
                 optional: true
             },

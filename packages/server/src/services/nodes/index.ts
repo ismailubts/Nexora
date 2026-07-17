@@ -1,7 +1,7 @@
-import { ClientType, INodeOptionsValue } from 'flowise-components'
+import { ClientType, INodeOptionsValue } from 'nexora-components'
 import { StatusCodes } from 'http-status-codes'
 import { cloneDeep, omit } from 'lodash'
-import { InternalFlowiseError } from '../../errors/internalFlowiseError'
+import { InternalNEXORAError } from '../../errors/internalNexoraError'
 import { getErrorMessage } from '../../errors/utils'
 import { INodeData, MODE } from '../../Interface'
 import { databaseEntities } from '../../utils'
@@ -25,7 +25,7 @@ const getAllNodes = async (client?: ClientType) => {
         }
         return dbResponse
     } catch (error) {
-        throw new InternalFlowiseError(StatusCodes.INTERNAL_SERVER_ERROR, `Error: nodesService.getAllNodes - ${getErrorMessage(error)}`)
+        throw new InternalNEXORAError(StatusCodes.INTERNAL_SERVER_ERROR, `Error: nodesService.getAllNodes - ${getErrorMessage(error)}`)
     }
 }
 
@@ -43,7 +43,7 @@ const getAllNodesForCategory = async (category: string, client?: ClientType) => 
         }
         return dbResponse
     } catch (error) {
-        throw new InternalFlowiseError(
+        throw new InternalNEXORAError(
             StatusCodes.INTERNAL_SERVER_ERROR,
             `Error: nodesService.getAllNodesForCategory - ${getErrorMessage(error)}`
         )
@@ -58,10 +58,10 @@ const getNodeByName = async (nodeName: string, client?: ClientType) => {
             const clonedNode = cloneDeep(appServer.nodesPool.componentNodes[nodeName])
             return filterNodeByClient(clonedNode, client)
         } else {
-            throw new InternalFlowiseError(StatusCodes.NOT_FOUND, `Node ${nodeName} not found`)
+            throw new InternalNEXORAError(StatusCodes.NOT_FOUND, `Node ${nodeName} not found`)
         }
     } catch (error) {
-        throw new InternalFlowiseError(StatusCodes.INTERNAL_SERVER_ERROR, `Error: nodesService.getAllNodes - ${getErrorMessage(error)}`)
+        throw new InternalNEXORAError(StatusCodes.INTERNAL_SERVER_ERROR, `Error: nodesService.getAllNodes - ${getErrorMessage(error)}`)
     }
 }
 
@@ -72,20 +72,20 @@ const getSingleNodeIcon = async (nodeName: string) => {
         if (Object.prototype.hasOwnProperty.call(appServer.nodesPool.componentNodes, nodeName)) {
             const nodeInstance = appServer.nodesPool.componentNodes[nodeName]
             if (nodeInstance.icon === undefined) {
-                throw new InternalFlowiseError(StatusCodes.NOT_FOUND, `Node ${nodeName} icon not found`)
+                throw new InternalNEXORAError(StatusCodes.NOT_FOUND, `Node ${nodeName} icon not found`)
             }
 
             if (nodeInstance.icon.endsWith('.svg') || nodeInstance.icon.endsWith('.png') || nodeInstance.icon.endsWith('.jpg')) {
                 const filepath = nodeInstance.icon
                 return filepath
             } else {
-                throw new InternalFlowiseError(StatusCodes.INTERNAL_SERVER_ERROR, `Node ${nodeName} icon is missing icon`)
+                throw new InternalNEXORAError(StatusCodes.INTERNAL_SERVER_ERROR, `Node ${nodeName} icon is missing icon`)
             }
         } else {
-            throw new InternalFlowiseError(StatusCodes.NOT_FOUND, `Node ${nodeName} not found`)
+            throw new InternalNEXORAError(StatusCodes.NOT_FOUND, `Node ${nodeName} not found`)
         }
     } catch (error) {
-        throw new InternalFlowiseError(
+        throw new InternalNEXORAError(
             StatusCodes.INTERNAL_SERVER_ERROR,
             `Error: nodesService.getSingleNodeIcon - ${getErrorMessage(error)}`
         )
@@ -120,13 +120,13 @@ const getSingleNodeAsyncOptions = async (nodeName: string, requestBody: any, wor
                 return []
             }
         } else {
-            throw new InternalFlowiseError(StatusCodes.NOT_FOUND, `Node ${nodeName} not found`)
+            throw new InternalNEXORAError(StatusCodes.NOT_FOUND, `Node ${nodeName} not found`)
         }
     } catch (error) {
-        if (error instanceof InternalFlowiseError) {
+        if (error instanceof InternalNEXORAError) {
             throw error
         }
-        throw new InternalFlowiseError(
+        throw new InternalNEXORAError(
             StatusCodes.INTERNAL_SERVER_ERROR,
             `Error: nodesService.getSingleNodeAsyncOptions - ${getErrorMessage(error)}`
         )

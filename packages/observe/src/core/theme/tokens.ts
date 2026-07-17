@@ -1,9 +1,9 @@
 /**
- * Design Tokens for @flowiseai/observe.
+ * Design Tokens for @nexora/observe.
  *
  * Base palette and node type colors below are duplicated in
  * packages/agentflow/src/core/theme/tokens.ts — keep in sync until
- * extracted to packages/shared-ui in FLOWISE-628. Each package
+ * extracted to packages/shared-ui in Nexora-628. Each package
  * extends the shared base with its own specifics (agentflow: ReactFlow,
  * syntax highlight; observe: observe-specific semantics).
  */

@@ -23,7 +23,7 @@ export default defineConfig(({ mode }) => {
         build: {
             lib: {
                 entry: resolve(__dirname, 'src/index.ts'),
-                name: 'FlowiseAgentflow',
+                name: 'NEXORAAgentflow',
                 formats: ['es', 'umd'],
                 fileName: (format) => `index.${format === 'es' ? 'js' : 'umd.js'}`
             },
@@ -52,7 +52,7 @@ export default defineConfig(({ mode }) => {
                         reactflow: 'ReactFlow'
                     },
                     assetFileNames: (assetInfo) => {
-                        if (assetInfo.name === 'style.css') return 'flowise.css'
+                        if (assetInfo.name === 'style.css') return 'Nexora.css'
                         return assetInfo.name || 'asset'
                     }
                 }

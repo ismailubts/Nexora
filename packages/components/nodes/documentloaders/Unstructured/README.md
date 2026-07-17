@@ -1,6 +1,6 @@
 # Unstructured File/Floder Loader
 
-Unstructured File Loader integration for Flowise
+Unstructured File Loader integration for Nexora
 
 ## 🌱 Env Variables
 
@@ -10,4 +10,4 @@ Unstructured File Loader integration for Flowise
 
 ## License
 
-Source code in this repository is made available under the [Apache License Version 2.0](https://github.com/FlowiseAI/Flowise/blob/master/LICENSE.md).
+Copyright (c) Abdul Ismail. All rights reserved. See LICENSE.md.

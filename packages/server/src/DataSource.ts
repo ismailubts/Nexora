@@ -14,13 +14,13 @@ let appDataSource: DataSource
 
 export const init = async (): Promise<void> => {
     let homePath
-    let flowisePath = path.join(getUserHome(), '.flowise')
-    if (!fs.existsSync(flowisePath)) {
-        fs.mkdirSync(flowisePath)
+    let NEXORAPath = path.join(getUserHome(), '.Nexora')
+    if (!fs.existsSync(NEXORAPath)) {
+        fs.mkdirSync(NEXORAPath)
     }
     switch (process.env.DATABASE_TYPE) {
         case 'sqlite':
-            homePath = process.env.DATABASE_PATH ?? flowisePath
+            homePath = process.env.DATABASE_PATH ?? NEXORAPath
             appDataSource = new DataSource({
                 type: 'sqlite',
                 database: path.resolve(homePath, 'database.sqlite'),
@@ -84,11 +84,11 @@ export const init = async (): Promise<void> => {
                 poolErrorHandler: (err) => {
                     logger.error(`Database pool error: ${JSON.stringify(err)}`)
                 },
-                applicationName: 'Flowise'
+                applicationName: 'Nexora'
             })
             break
         default:
-            homePath = process.env.DATABASE_PATH ?? flowisePath
+            homePath = process.env.DATABASE_PATH ?? NEXORAPath
             appDataSource = new DataSource({
                 type: 'sqlite',
                 database: path.resolve(homePath, 'database.sqlite'),

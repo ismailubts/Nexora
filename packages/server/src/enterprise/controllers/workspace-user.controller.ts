@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express'
 import { StatusCodes } from 'http-status-codes'
 import { QueryRunner } from 'typeorm'
-import { InternalFlowiseError } from '../../errors/internalFlowiseError'
+import { InternalNEXORAError } from '../../errors/internalNexoraError'
 import { GeneralErrorMessage } from '../../utils/constants'
 import { getRunningExpressApp } from '../../utils/getRunningExpressApp'
 import { WorkspaceUser, WorkspaceUserStatus } from '../database/entities/workspace-user.entity'
@@ -17,7 +17,7 @@ import {
 export class WorkspaceUserController {
     public async create(req: Request, res: Response, next: NextFunction) {
         try {
-            if (!req.user) throw new InternalFlowiseError(StatusCodes.UNAUTHORIZED, GeneralErrorMessage.UNAUTHORIZED)
+            if (!req.user) throw new InternalNEXORAError(StatusCodes.UNAUTHORIZED, GeneralErrorMessage.UNAUTHORIZED)
 
             req.body.createdBy = req.user.id
             req.body.status = WorkspaceUserStatus.INVITED
@@ -79,11 +79,11 @@ export class WorkspaceUserController {
             } else if (query.roleId) {
                 // Only org user managers may list workspace members by role.
                 if (!userMayManageOrgUsers(user)) {
-                    throw new InternalFlowiseError(StatusCodes.FORBIDDEN, GeneralErrorMessage.FORBIDDEN)
+                    throw new InternalNEXORAError(StatusCodes.FORBIDDEN, GeneralErrorMessage.FORBIDDEN)
                 }
                 workspaceUser = await workspaceUserService.readWorkspaceUserByRoleId(query.roleId, queryRunner, user.activeOrganizationId)
             } else {
-                throw new InternalFlowiseError(StatusCodes.BAD_REQUEST, GeneralErrorMessage.UNHANDLED_EDGE_CASE)
+                throw new InternalNEXORAError(StatusCodes.BAD_REQUEST, GeneralErrorMessage.UNHANDLED_EDGE_CASE)
             }
 
             return res.status(StatusCodes.OK).json(workspaceUser)
@@ -97,7 +97,7 @@ export class WorkspaceUserController {
     public async update(req: Request, res: Response, next: NextFunction) {
         let queryRunner: QueryRunner | undefined
         try {
-            if (!req.user) throw new InternalFlowiseError(StatusCodes.UNAUTHORIZED, GeneralErrorMessage.UNAUTHORIZED)
+            if (!req.user) throw new InternalNEXORAError(StatusCodes.UNAUTHORIZED, GeneralErrorMessage.UNAUTHORIZED)
 
             req.body.updatedBy = req.user.id
 
@@ -116,7 +116,7 @@ export class WorkspaceUserController {
 
     public async delete(req: Request, res: Response, next: NextFunction) {
         try {
-            if (!req.user) throw new InternalFlowiseError(StatusCodes.UNAUTHORIZED, GeneralErrorMessage.UNAUTHORIZED)
+            if (!req.user) throw new InternalNEXORAError(StatusCodes.UNAUTHORIZED, GeneralErrorMessage.UNAUTHORIZED)
 
             const query = req.query as Partial<WorkspaceUser>
 

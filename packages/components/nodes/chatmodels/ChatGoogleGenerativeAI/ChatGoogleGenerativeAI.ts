@@ -5,7 +5,7 @@ import { ICommonObject, IMultiModalOption, INode, INodeData, INodeOptionsValue, 
 import { getBaseClasses, getCredentialData, getCredentialParam } from '../../../src/utils'
 import { getModels, MODEL_TYPE } from '../../../src/modelLoader'
 import { GoogleGenerativeAIChatInput } from '@langchain/google-genai'
-import { ChatGoogleGenerativeAI } from './FlowiseChatGoogleGenerativeAI'
+import { ChatGoogleGenerativeAI } from './NexoraChatGoogleGenerativeAI'
 import { checkDenyList } from '../../../src/httpSecurity'
 
 class GoogleGenerativeAI_ChatModels implements INode {
@@ -81,7 +81,7 @@ class GoogleGenerativeAI_ChatModels implements INode {
                 name: 'allowImageUploads',
                 type: 'boolean',
                 description:
-                    'Allow image input. Refer to the <a href="https://docs.flowiseai.com/using-flowise/uploads#image" target="_blank">docs</a> for more details.',
+                    'Allow image input. Refer to the <a href="https://github.com/ismailubts/Nexora/using-Nexora/uploads#image" target="_blank">docs</a> for more details.',
                 default: false,
                 optional: true
             },

@@ -1,6 +1,6 @@
-# @flowiseai/agentflow - Architecture
+# @nexora/agentflow - Architecture
 
-This document describes the internal architecture of the `@flowiseai/agentflow` package.
+This document describes the internal architecture of the `@nexora/agentflow` package.
 
 ## Overview
 

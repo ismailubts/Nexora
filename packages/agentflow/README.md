@@ -1,7 +1,7 @@
-# @flowiseai/agentflow
+# @nexora/agentflow
 
-[![Version](https://img.shields.io/npm/v/@flowiseai/agentflow)](https://www.npmjs.com/package/@flowiseai/agentflow)
-[![License](https://img.shields.io/badge/license-Apache--2.0-blue)](https://github.com/FlowiseAI/Flowise/blob/main/LICENSE.md)
+[![Version](https://img.shields.io/npm/v/@nexora/agentflow)](https://www.npmjs.com/package/@nexora/agentflow)
+[![License](https://img.shields.io/badge/license-Proprietary-blue)](https://github.com/ismailubts/Nexora/blob/main/LICENSE.md)
 
 > Embeddable React component for building and visualizing AI agent workflows
 
@@ -23,7 +23,7 @@ This package is functional and has comprehensive test coverage, but the public A
 
 ## Overview
 
-`@flowiseai/agentflow` is a React-based flow editor for creating AI agent workflows. It provides a visual canvas built on ReactFlow for connecting AI agents, LLMs, tools, and logic nodes.
+`@nexora/agentflow` is a React-based flow editor for creating AI agent workflows. It provides a visual canvas built on ReactFlow for connecting AI agents, LLMs, tools, and logic nodes.
 
 ## Features
 
@@ -45,7 +45,7 @@ This package is functional and has comprehensive test coverage, but the public A
 ## Installation
 
 ```bash
-pnpm add @flowiseai/agentflow
+pnpm add @nexora/agentflow
 ```
 
 **Peer Dependencies:**
@@ -57,9 +57,9 @@ pnpm add react react-dom @mui/material @mui/icons-material @emotion/react @emoti
 ## Basic Usage
 
 ```tsx
-import { Agentflow } from '@flowiseai/agentflow'
+import { Agentflow } from '@nexora/agentflow'
 
-import '@flowiseai/agentflow/flowise.css'
+import '@nexora/agentflow/Nexora.css'
 
 export default function App() {
     return (
@@ -75,9 +75,9 @@ export default function App() {
 ```tsx
 import { useRef } from 'react'
 
-import { Agentflow, type AgentFlowInstance, type FlowData } from '@flowiseai/agentflow'
+import { Agentflow, type AgentFlowInstance, type FlowData } from '@nexora/agentflow'
 
-import '@flowiseai/agentflow/flowise.css'
+import '@nexora/agentflow/Nexora.css'
 
 export default function App() {
     const ref = useRef<AgentFlowInstance>(null)
@@ -138,7 +138,7 @@ Run `cd examples && npm install && npm run dev` to try them locally.
 <!-- prettier-ignore -->
 | Prop                 | Type                                       | Default        | Description                                                     |
 | -------------------- | ------------------------------------------ | -------------- | --------------------------------------------------------------- |
-| `apiBaseUrl`         | `string`                                   | **(required)** | Flowise API server endpoint                                     |
+| `apiBaseUrl`         | `string`                                   | **(required)** | Nexora API server endpoint                                     |
 | `token`              | `string`                                   | —              | Authentication token for API calls                              |
 | `requestInterceptor` | `(config: InternalAxiosRequestConfig) => InternalAxiosRequestConfig` | — | Customize outgoing API requests (e.g., set `withCredentials`, add headers). The callback receives the full Axios request config — only modify what you need. See [Security: requestInterceptor](#security-requestinterceptor) below. |
 | `initialFlow`        | `FlowData`                                 | —              | Initial flow data to render (uncontrolled — only used on mount) |
@@ -225,9 +225,9 @@ Visit the [examples](./examples) directory for more usage patterns. See [TESTS.m
 
 ### API Connection Issues
 
--   **CORS errors** — Ensure the Flowise server allows requests from your app's origin. Check the Flowise CORS configuration.
+-   **CORS errors** — Ensure the Nexora server allows requests from your app's origin. Check the Nexora CORS configuration.
 -   **401 Unauthorized** — Use an API Key (Settings > API Keys), not a JWT user token. Verify the key is passed via the `token` prop.
--   **Wrong `apiBaseUrl`** — The URL must point to the Flowise API root (e.g., `http://localhost:3000`), not a subpath.
+-   **Wrong `apiBaseUrl`** — The URL must point to the Nexora API root (e.g., `http://localhost:3000`), not a subpath.
 
 ### Validation Errors
 
@@ -239,7 +239,7 @@ Visit the [examples](./examples) directory for more usage patterns. See [TESTS.m
 ### Theme Issues
 
 -   **Dark mode not applying** — Pass `isDarkMode={true}` as a prop. The component uses its own design tokens and does not inherit from the host app's theme.
--   **Style conflicts** — Ensure `@flowiseai/agentflow/flowise.css` is imported. The component's CSS variables are scoped to avoid collisions.
+-   **Style conflicts** — Ensure `@nexora/agentflow/Nexora.css` is imported. The component's CSS variables are scoped to avoid collisions.
 
 ### Variables Not Resolving
 
@@ -248,7 +248,7 @@ Visit the [examples](./examples) directory for more usage patterns. See [TESTS.m
 
 ### Async Options Not Loading
 
--   **Empty dropdowns for models/tools/credentials** — These load from the Flowise API. Verify `apiBaseUrl` and `token` are correct and the server is running.
+-   **Empty dropdowns for models/tools/credentials** — These load from the Nexora API. Verify `apiBaseUrl` and `token` are correct and the server is running.
 -   **Network errors in console** — Check browser DevTools for failed requests. The API client logs errors to the console.
 
 ## Documentation
@@ -263,8 +263,8 @@ This package follows a feature-based architecture with clear separation of conce
 
 ## License
 
-Apache-2.0 — see the repository root [LICENSE.md](https://github.com/FlowiseAI/Flowise/blob/main/LICENSE.md) for details.
+Copyright (c) Abdul Ismail. All rights reserved. See [LICENSE.md](https://github.com/ismailubts/Nexora/blob/main/LICENSE.md) for details.
 
 ---
 
-Part of the [Flowise](https://github.com/FlowiseAI/Flowise) ecosystem
+Part of the [Nexora](https://github.com/ismailubts/Nexora) ecosystem

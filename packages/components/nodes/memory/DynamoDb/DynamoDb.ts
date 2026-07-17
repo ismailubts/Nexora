@@ -19,7 +19,7 @@ import {
     getCredentialParam,
     mapChatMessageToBaseMessage
 } from '../../../src/utils'
-import { FlowiseMemory, ICommonObject, IMessage, INode, INodeData, INodeParams, MemoryMethods, MessageType } from '../../../src/Interface'
+import { NEXORAMemory, ICommonObject, IMessage, INode, INodeData, INodeParams, MemoryMethods, MessageType } from '../../../src/Interface'
 
 class DynamoDb_Memory implements INode {
     label: string
@@ -72,7 +72,7 @@ class DynamoDb_Memory implements INode {
                 name: 'sessionId',
                 type: 'string',
                 description:
-                    'If not specified, a random id will be used. Learn <a target="_blank" href="https://docs.flowiseai.com/memory/long-term-memory#ui-and-embedded-chat">more</a>',
+                    'If not specified, a random id will be used. Learn <a target="_blank" href="https://github.com/ismailubts/Nexora/memory/long-term-memory#ui-and-embedded-chat">more</a>',
                 default: '',
                 additionalParams: true,
                 optional: true
@@ -163,7 +163,7 @@ interface DynamoDBSerializedChatMessage {
     }
 }
 
-class BufferMemoryExtended extends FlowiseMemory implements MemoryMethods {
+class BufferMemoryExtended extends NEXORAMemory implements MemoryMethods {
     private tableName = ''
     private partitionKey = ''
     private dynamoKey: Record<string, AttributeValue>

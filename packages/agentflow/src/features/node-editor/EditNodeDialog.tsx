@@ -133,7 +133,7 @@ function EditNodeDialogComponent({ show, dialogProps, onCancel }: EditNodeDialog
         }
 
         // For credential inputs, also set the top-level `credential` field.
-        // Server-side node execution reads nodeData.credential (not inputs.FLOWISE_CREDENTIAL_ID)
+        // Server-side node execution reads nodeData.credential (not inputs.NEXORA_CREDENTIAL_ID)
         // to fetch credential data via getCredentialData(), so both must be kept in sync.
         if (inputParam.type === 'credential') {
             const credentialId = typeof newValue === 'string' ? newValue : ''

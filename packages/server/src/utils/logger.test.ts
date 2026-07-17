@@ -9,7 +9,7 @@ jest.mock('fs', () => ({
     mkdirSync: (...args: any[]) => mockMkdirSync(...args)
 }))
 
-jest.mock('flowise-components', () => {
+jest.mock('nexora-components', () => {
     const winston = require('winston')
     return {
         StorageProviderFactory: {
@@ -23,7 +23,7 @@ jest.mock('flowise-components', () => {
 jest.mock('../../src/utils/config', () => ({
     __esModule: true,
     default: {
-        logging: { dir: '/tmp/flowise-test-logs' }
+        logging: { dir: '/tmp/Nexora-test-logs' }
     }
 }))
 

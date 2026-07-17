@@ -1,5 +1,5 @@
 import {
-    FlowiseMemory,
+    NEXORAMemory,
     ICommonObject,
     IMessage,
     INode,
@@ -69,7 +69,7 @@ class SimpleChatEngine_LlamaIndex implements INode {
     async run(nodeData: INodeData, input: string, options: ICommonObject): Promise<string> {
         const model = nodeData.inputs?.model as LLM
         const systemMessagePrompt = nodeData.inputs?.systemMessagePrompt as string
-        const memory = nodeData.inputs?.memory as FlowiseMemory
+        const memory = nodeData.inputs?.memory as NEXORAMemory
         const prependMessages = options?.prependMessages
 
         const chatHistory = [] as ChatMessage[]

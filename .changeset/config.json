@@ -7,5 +7,5 @@
     "access": "public",
     "baseBranch": "main",
     "updateInternalDependencies": "patch",
-    "ignore": ["flowise", "flowise-api", "flowise-components", "flowise-ui"]
+    "ignore": ["Nexora", "Nexora-api", "nexora-components", "nexora-ui"]
 }

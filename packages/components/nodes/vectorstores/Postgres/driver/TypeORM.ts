@@ -1,6 +1,6 @@
 import { DataSourceOptions } from 'typeorm'
 import { VectorStoreDriver } from './Base'
-import { FLOWISE_CHATID, ICommonObject } from '../../../../src'
+import { NEXORA_CHATID, ICommonObject } from '../../../../src'
 import { sanitizeDataSourceOptions } from '../../../../src/sanitizeDataSourceOptions'
 import { TypeORMVectorStore, TypeORMVectorStoreArgs, TypeORMVectorStoreDocument } from '@langchain/community/vectorstores/typeorm'
 import { VectorStore } from '@langchain/core/vectorstores'
@@ -201,22 +201,22 @@ export class TypeORMDriver extends VectorStoreDriver {
     ) => {
         const embeddingString = `[${query.join(',')}]`
         let chatflowOr = ''
-        const { [FLOWISE_CHATID]: chatId, ...restFilters } = filter || {}
+        const { [NEXORA_CHATID]: chatId, ...restFilters } = filter || {}
 
         const _filter = JSON.stringify(restFilters || {})
         const parameters: any[] = [embeddingString, _filter, k]
 
         // Match chatflow uploaded file and keep filtering on other files:
-        // https://github.com/FlowiseAI/Flowise/pull/3367#discussion_r1804229295
+        // https://github.com/ismailubts/Nexora/pull/3367#discussion_r1804229295
         if (chatId) {
-            parameters.push({ [FLOWISE_CHATID]: chatId })
+            parameters.push({ [NEXORA_CHATID]: chatId })
             chatflowOr = `OR metadata @> $${parameters.length}`
         }
 
         const queryString = `
             SELECT *, embedding ${distanceOperator} $1 as "_distance"
             FROM ${tablePath}
-            WHERE ((metadata @> $2) AND NOT (metadata ? '${FLOWISE_CHATID}')) ${chatflowOr}
+            WHERE ((metadata @> $2) AND NOT (metadata ? '${NEXORA_CHATID}')) ${chatflowOr}
             ORDER BY "_distance" ASC
             LIMIT $3;`
 

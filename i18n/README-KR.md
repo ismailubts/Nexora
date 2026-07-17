@@ -1,92 +1,93 @@
 <!-- markdownlint-disable MD030 -->
 
 <p align="center">
-<img src="https://github.com/FlowiseAI/Flowise/blob/main/images/flowise_white.svg#gh-light-mode-only">
-<img src="https://github.com/FlowiseAI/Flowise/blob/main/images/flowise_dark.svg#gh-dark-mode-only">
+<img src="https://github.com/ismailubts/Nexora/blob/main/images/Nexora_white.svg#gh-light-mode-only">
+<img src="https://github.com/ismailubts/Nexora/blob/main/images/Nexora_dark.svg#gh-dark-mode-only">
 </p>
 
-[![Release Notes](https://img.shields.io/github/release/FlowiseAI/Flowise)](https://github.com/FlowiseAI/Flowise/releases)
-[![Discord](https://img.shields.io/discord/1087698854775881778?label=Discord&logo=discord)](https://discord.gg/jbaHfsRVBW)
-[![Twitter Follow](https://img.shields.io/twitter/follow/FlowiseAI?style=social)](https://twitter.com/FlowiseAI)
-[![GitHub star chart](https://img.shields.io/github/stars/FlowiseAI/Flowise?style=social)](https://star-history.com/#FlowiseAI/Flowise)
-[![GitHub fork](https://img.shields.io/github/forks/FlowiseAI/Flowise?style=social)](https://github.com/FlowiseAI/Flowise/fork)
+<div align="center">
+
+[![Release Notes](https://img.shields.io/github/release/ismailubts/Nexora)](https://github.com/ismailubts/Nexora/releases)
 
 [English](../README.md) | [繁體中文](./README-TW.md) | [简体中文](./README-ZH.md) | [日本語](./README-JA.md) | 한국어
 
-<h3>AI 에이전트를 시각적으로 구축하세요</h3>
-<a href="https://github.com/FlowiseAI/Flowise">
-<img width="100%" src="https://github.com/FlowiseAI/Flowise/blob/main/images/flowise_agentflow.gif?raw=true"></a>
+</div>
 
-## ⚡빠른 시작 가이드
+<h3>AI 에이전트를 시각적으로 구축</h3>
+<a href="https://github.com/ismailubts/Nexora">
+<img width="100%" src="https://github.com/ismailubts/Nexora/blob/main/images/Nexora_agentflow.gif?raw=true"></a>
 
-20.0.0 버전 이상의 [NodeJS](https://nodejs.org/en/download) 다운로드 및 설치
+## ⚡ 빠른 시작
 
-1. Flowise 설치
+[NodeJS](https://nodejs.org/en/download) >= 20.0.0 다운로드 및 설치
+
+1. Nexora 설치
     ```bash
-    npm install -g flowise
+    npm install -g nexora
     ```
-2. Flowise 시작하기
+2. Nexora 실행
 
     ```bash
-    npx flowise start
+    npx nexora start
     ```
 
-3. [http://localhost:3000](http://localhost:3000) URL 열기
+3. [http://localhost:3000](http://localhost:3000) 열기
 
-## 🐳 도커(Docker)를 활용하여 시작하기
+## 🐳 Docker
 
-### 도커 컴포즈 활용
+### Docker Compose
 
-1. 프로젝트의 최상위(root) 디렉토리에 있는 `docker` 폴더로 이동하세요.
-2. `.env.example` 파일을 복사한 후, 같은 경로에 붙여넣기 한 다음, `.env`로 이름을 변경합니다.
+1. 프로젝트 루트의 `docker` 폴더로 이동
+2. `.env.example` 파일을 복사하여 같은 위치에 붙여넣고 `.env`로 이름 변경
 3. `docker compose up -d` 실행
-4. [http://localhost:3000](http://localhost:3000) URL 열기
-5. `docker compose stop` 명령어를 통해 컨테이너를 종료시킬 수 있습니다.
+4. [http://localhost:3000](http://localhost:3000) 열기
+5. `docker compose stop`으로 컨테이너 중지
 
-### 도커 이미지 활용
+### Docker 이미지
 
-1. 로컬에서 이미지 빌드하기:
+1. 로컬에서 이미지 빌드:
     ```bash
-    docker build --no-cache -t flowise .
+    docker build --no-cache -t nexora .
     ```
-2. 이미지 실행하기:
+2. 이미지 실행:
 
     ```bash
-    docker run -d --name flowise -p 3000:3000 flowise
-    ```
-
-3. 이미지 종료하기:
-    ```bash
-    docker stop flowise
+    docker run -d --name nexora -p 3000:3000 nexora
     ```
 
-## 👨‍💻 개발자들을 위한 가이드
+3. 이미지 중지:
+    ```bash
+    docker stop nexora
+    ```
 
-Flowise는 단일 리포지토리에 3개의 서로 다른 모듈이 있습니다.
+## 🛠 설정
 
--   `server`: API 로직을 제공하는 노드 백엔드
--   `ui`: 리액트 프론트엔드
--   `components`: 서드파티 노드 통합을 위한 컴포넌트
+Nexora는 단일 mono 저장소에 여러 모듈이 있습니다.
 
-### 사전 설치 요건
+-   `server`: API 로직을 제공하는 Node 백엔드
+-   `ui`: React 프론트엔드
+-   `components`: 서드파티 노드 통합
+-   `api-documentation`: express에서 자동 생성되는 swagger-ui API 문서
 
--   [PNPM](https://pnpm.io/installation) 설치하기
+### 사전 요구 사항
+
+-   [PNPM](https://pnpm.io/installation) 설치
     ```bash
     npm i -g pnpm
     ```
 
-### 설치 및 설정
+### 설정
 
-1. 리포지토리 복제
+1. 저장소 클론
 
     ```bash
-    git clone https://github.com/FlowiseAI/Flowise.git
+    git clone https://github.com/ismailubts/Nexora.git
     ```
 
-2. 리포지토리 폴더로 이동
+2. 저장소 폴더로 이동
 
     ```bash
-    cd Flowise
+    cd Nexora
     ```
 
 3. 모든 모듈의 종속성 설치:
@@ -95,96 +96,42 @@ Flowise는 단일 리포지토리에 3개의 서로 다른 모듈이 있습니�
     pnpm install
     ```
 
-4. 모든 코드 빌드하기:
+4. 모든 코드 빌드:
 
     ```bash
     pnpm build
     ```
 
-5. 애플리케이션 시작:
+5. 앱 시작:
 
     ```bash
     pnpm start
     ```
 
-    이제 [http://localhost:3000](http://localhost:3000)에서 애플리케이션에 접속할 수 있습니다.
+    이제 [http://localhost:3000](http://localhost:3000)에서 앱에 액세스할 수 있습니다
 
-6. 개발 환경에서 빌드할 경우:
+6. 개발 빌드:
 
-    - `packages/ui`경로에 `.env` 파일을 생성하고 `VITE_PORT`(`.env.example` 참조)를 지정합니다.
-    - `packages/server`경로에 `.env` 파일을 생성하고 `PORT`(`.env.example` 참조)를 지정합니다.
-    - 실행하기
+    - `packages/ui`에 `.env` 파일을 만들고 `VITE_PORT` 지정 (`.env.example` 참조)
+    - `packages/server`에 `.env` 파일을 만들고 `PORT` 지정 (`.env.example` 참조)
+    - 실행
 
         ```bash
         pnpm dev
         ```
 
-    코드가 변경되면 [http://localhost:8080](http://localhost:8080)에서 자동으로 애플리케이션을 새로고침 합니다.
+    코드 변경 사항은 [http://localhost:8080](http://localhost:8080)에서 자동으로 앱을 다시 로드합니다
 
 ## 🌱 환경 변수
 
-Flowise는 인스턴스 구성을 위한 다양한 환경 변수를 지원합니다. `packages/server` 폴더 내 `.env` 파일에 다양한 환경 변수를 지정할 수 있습니다. [자세히 보기](https://github.com/FlowiseAI/Flowise/blob/main/CONTRIBUTING.md#-env-variables)
+Nexora는 인스턴스 구성을 위한 다양한 환경 변수를 지원합니다. `packages/server` 폴더 내 `.env` 파일에서 변수를 지정할 수 있습니다. `packages/server/.env.example`을 참조하세요.
 
-## 📖 공식 문서
+## 📄 라이선스
 
-[Flowise 문서](https://docs.flowiseai.com/)
+Copyright (c) Abdul Ismail. All rights reserved.
 
-## 🌐 자체 호스팅 하기
+Abdul Ismail의 사전 서면 허가 없이 본 소프트웨어의 전부 또는 일부를 복사, 수정, 배포 또는 사용하는 것은 금지됩니다.
 
-기존 인프라 환경에서 Flowise를 자체 호스팅으로 배포하세요. 다양한 배포 [deployments](https://docs.flowiseai.com/configuration/deployment) 방법을 지원합니다.
+자세한 내용은 [LICENSE.md](../LICENSE.md)를 참조하세요.
 
--   [AWS](https://docs.flowiseai.com/deployment/aws)
--   [Azure](https://docs.flowiseai.com/deployment/azure)
--   [Digital Ocean](https://docs.flowiseai.com/deployment/digital-ocean)
--   [GCP](https://docs.flowiseai.com/deployment/gcp)
--   <details>
-      <summary>그 외</summary>
-
-    -   [Railway](https://docs.flowiseai.com/deployment/railway)
-
-        [![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/template/pn4G8S?referralCode=WVNPD9)
-
-    -   [Render](https://docs.flowiseai.com/deployment/render)
-
-        [![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://docs.flowiseai.com/deployment/render)
-
-    -   [HuggingFace Spaces](https://docs.flowiseai.com/configuration/deployment/hugging-face)
-
-        <a href="https://huggingface.co/spaces/FlowiseAI/Flowise"><img src="https://huggingface.co/datasets/huggingface/badges/raw/main/open-in-hf-spaces-sm.svg" alt="HuggingFace Spaces"></a>
-
-    -   [Elestio](https://elest.io/open-source/flowiseai)
-
-        [![Deploy](https://pub-da36157c854648669813f3f76c526c2b.r2.dev/deploy-on-elestio-black.png)](https://elest.io/open-source/flowiseai)
-
-    -   [Sealos](https://cloud.sealos.io/?openapp=system-template%3FtemplateName%3Dflowise)
-
-        [![](https://raw.githubusercontent.com/labring-actions/templates/main/Deploy-on-Sealos.svg)](https://cloud.sealos.io/?openapp=system-template%3FtemplateName%3Dflowise)
-
-    -   [RepoCloud](https://repocloud.io/details/?app_id=29)
-
-        [![Deploy on RepoCloud](https://d16t0pc4846x52.cloudfront.net/deploy.png)](https://repocloud.io/details/?app_id=29)
-
-      </details>
-
-## ☁️ 클라우드 호스팅 서비스
-
-[Flowise Cloud 시작하기](https://flowiseai.com/)
-
-## 🙋 기술 지원
-
-질문, 버그 리포팅, 새로운 기능 요청 등은 [discussion](https://github.com/FlowiseAI/Flowise/discussions) 섹션에서 자유롭게 이야기 해주세요.
-
-## 🙌 오픈소스 활동에 기여하기
-
-다음과 같은 멋진 기여자들(contributors)에게 감사드립니다.
-
-<a href="https://github.com/FlowiseAI/Flowise/graphs/contributors">
-<img src="https://contrib.rocks/image?repo=FlowiseAI/Flowise" />
-</a>
-
-[contributing guide](../CONTRIBUTING.md)를 살펴보세요. 디스코드 [Discord](https://discord.gg/jbaHfsRVBW) 채널에서도 이슈나 질의응답을 진행하실 수 있습니다.
-[![Star History Chart](https://api.star-history.com/svg?repos=FlowiseAI/Flowise&type=Timeline)](https://star-history.com/#FlowiseAI/Flowise&Date)
-
-## 📄 라이센스
-
-본 리포지토리의 소스코드는 [Apache License Version 2.0](../LICENSE.md) 라이센스가 적용됩니다.
+저장소: [https://github.com/ismailubts/Nexora](https://github.com/ismailubts/Nexora)

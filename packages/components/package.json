@@ -1,7 +1,7 @@
 {
-    "name": "flowise-components",
+    "name": "nexora-components",
     "version": "3.1.3",
-    "description": "Flowiseai Components",
+    "description": "Nexora Components",
     "main": "dist/src/index",
     "types": "dist/src/index.d.ts",
     "exports": {
@@ -24,10 +24,9 @@
         "test:coverage": "jest --coverage"
     },
     "keywords": [],
-    "homepage": "https://flowiseai.com",
+    "homepage": "https://github.com/ismailubts/Nexora",
     "author": {
-        "name": "Henry Heng",
-        "email": "henryheng@flowiseai.com"
+        "name": "Abdul Ismail"
     },
     "license": "SEE LICENSE IN LICENSE.md",
     "dependencies": {

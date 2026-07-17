@@ -13,7 +13,7 @@ import {
     createTextOnlyOutputParser
 } from '../../../src/utils'
 import { type ToolsAgentStep } from '@langchain/classic/agents/openai/output_parser'
-import { FlowiseMemory, ICommonObject, INode, INodeData, INodeParams, IServerSideEventStreamer, IUsedTool } from '../../../src/Interface'
+import { NEXORAMemory, ICommonObject, INode, INodeData, INodeParams, IServerSideEventStreamer, IUsedTool } from '../../../src/Interface'
 import { ConsoleCallbackHandler, CustomChainHandler, additionalCallbacks } from '../../../src/handler'
 import { AgentExecutor, ToolCallingAgentOutputParser } from '../../../src/agents'
 import { Moderation, checkInputs, streamResponse } from '../../moderation/Moderation'
@@ -127,7 +127,7 @@ class ConversationalRetrievalToolAgent_Agents implements INode {
     }
 
     async run(nodeData: INodeData, input: string, options: ICommonObject): Promise<string | ICommonObject> {
-        const memory = nodeData.inputs?.memory as FlowiseMemory
+        const memory = nodeData.inputs?.memory as NEXORAMemory
         const moderations = nodeData.inputs?.inputModeration as Moderation[]
 
         const shouldStreamResponse = options.shouldStreamResponse
@@ -248,7 +248,7 @@ const prepareAgent = async (
     const model = nodeData.inputs?.model as BaseChatModel
     const rephraseModel = (nodeData.inputs?.rephraseModel as BaseChatModel) || model // Use main model if not specified
     const maxIterations = nodeData.inputs?.maxIterations as string
-    const memory = nodeData.inputs?.memory as FlowiseMemory
+    const memory = nodeData.inputs?.memory as NEXORAMemory
     let systemMessage = nodeData.inputs?.systemMessage as string
     let rephrasePrompt = nodeData.inputs?.rephrasePrompt as string
     let tools = nodeData.inputs?.tools

@@ -1,7 +1,7 @@
 /**
  * Basic Example
  *
- * Demonstrates minimal @flowiseai/agentflow usage:
+ * Demonstrates minimal @nexora/agentflow usage:
  * - Rendering the canvas with an initial flow
  * - Tracking flow changes via onFlowChange
  * - Handling save via onSave
@@ -10,8 +10,8 @@
 
 import { useCallback, useRef, useState } from 'react'
 
-import type { AgentFlowInstance, FlowData } from '@flowiseai/agentflow'
-import { Agentflow } from '@flowiseai/agentflow'
+import type { AgentFlowInstance, FlowData } from '@nexora/agentflow'
+import { Agentflow } from '@nexora/agentflow'
 
 import { apiBaseUrl, token } from '../config'
 import { FlowStatePanel } from '../FlowStatePanel'

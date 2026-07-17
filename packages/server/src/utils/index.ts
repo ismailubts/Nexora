@@ -36,10 +36,10 @@ import {
     ICommonObject,
     IDatabaseEntity,
     IMessage,
-    FlowiseMemory,
+    NEXORAMemory,
     IFileUpload,
     StorageProviderFactory
-} from 'flowise-components'
+} from 'nexora-components'
 import { randomBytes } from 'crypto'
 import { AES, enc } from 'crypto-js'
 
@@ -55,7 +55,7 @@ import { Variable } from '../database/entities/Variable'
 import { DocumentStore } from '../database/entities/DocumentStore'
 import { DocumentStoreFileChunk } from '../database/entities/DocumentStoreFileChunk'
 import { CustomMcpServer } from '../database/entities/CustomMcpServer'
-import { InternalFlowiseError } from '../errors/internalFlowiseError'
+import { InternalNEXORAError } from '../errors/internalNexoraError'
 import { StatusCodes } from 'http-status-codes'
 import {
     CreateSecretCommand,
@@ -70,7 +70,7 @@ export const CHAT_HISTORY_VAR_PREFIX = 'chat_history'
 export const RUNTIME_MESSAGES_LENGTH_VAR_PREFIX = 'runtime_messages_length'
 export const LOOP_COUNT_VAR_PREFIX = 'loop_count'
 export const CURRENT_DATE_TIME_VAR_PREFIX = 'current_date_time'
-export const REDACTED_CREDENTIAL_VALUE = '_FLOWISE_BLANK_07167752-1a71-43b1-bf8f-4f32252165db'
+export const REDACTED_CREDENTIAL_VALUE = '_NEXORA_BLANK_07167752-1a71-43b1-bf8f-4f32252165db'
 
 let secretsManagerClient: SecretsManagerClient | null = null
 const USE_AWS_SECRETS_MANAGER = process.env.SECRETKEY_STORAGE_TYPE === 'aws'
@@ -311,11 +311,11 @@ export const getEndingNodes = (
     // If there are multiple endingnodes, the failed ones will be automatically ignored.
     // And only ensure that at least one can pass the verification.
     const verifiedEndingNodes: typeof endingNodes = []
-    let error: InternalFlowiseError | null = null
+    let error: InternalNEXORAError | null = null
     for (const endingNode of endingNodes) {
         const endingNodeData = endingNode.data
         if (!endingNodeData) {
-            error = new InternalFlowiseError(StatusCodes.INTERNAL_SERVER_ERROR, `Ending node ${endingNode.id} data not found`)
+            error = new InternalNEXORAError(StatusCodes.INTERNAL_SERVER_ERROR, `Ending node ${endingNode.id} data not found`)
 
             continue
         }
@@ -331,7 +331,7 @@ export const getEndingNodes = (
                 endingNodeData.category !== 'Multi Agents' &&
                 endingNodeData.category !== 'Sequential Agents'
             ) {
-                error = new InternalFlowiseError(StatusCodes.INTERNAL_SERVER_ERROR, `Ending node must be either a Chain or Agent or Engine`)
+                error = new InternalNEXORAError(StatusCodes.INTERNAL_SERVER_ERROR, `Ending node must be either a Chain or Agent or Engine`)
                 continue
             }
         }
@@ -343,7 +343,7 @@ export const getEndingNodes = (
     }
 
     if (endingNodes.length === 0 || error === null) {
-        error = new InternalFlowiseError(StatusCodes.INTERNAL_SERVER_ERROR, `Ending nodes not found`)
+        error = new InternalNEXORAError(StatusCodes.INTERNAL_SERVER_ERROR, `Ending nodes not found`)
     }
 
     throw error
@@ -792,7 +792,7 @@ export const clearSessionMemory = async (
                 await newNodeInstance.clearChatMessages(node.data, options, { type: 'threadId', id: sessionId })
             } else {
                 node.data.inputs.sessionId = sessionId
-                const initializedInstance: FlowiseMemory = await newNodeInstance.init(node.data, '', options)
+                const initializedInstance: NEXORAMemory = await newNodeInstance.init(node.data, '', options)
                 await initializedInstance.clearChatMessages(sessionId)
             }
         } else if (chatId && node.data.inputs) {
@@ -800,7 +800,7 @@ export const clearSessionMemory = async (
                 await newNodeInstance.clearChatMessages(node.data, options, { type: 'chatId', id: chatId })
             } else {
                 node.data.inputs.sessionId = chatId
-                const initializedInstance: FlowiseMemory = await newNodeInstance.init(node.data, '', options)
+                const initializedInstance: NEXORAMemory = await newNodeInstance.init(node.data, '', options)
                 await initializedInstance.clearChatMessages(chatId)
             }
         }
@@ -907,7 +907,7 @@ export const getVariableValue = async (
             /**
              * Apply string transformation to convert special chars:
              * FROM: hello i am ben\n\n\thow are you?
-             * TO: hello i am benFLOWISE_NEWLINEFLOWISE_NEWLINEFLOWISE_TABhow are you?
+             * TO: hello i am benNEXORA_NEWLINENEXORA_NEWLINENEXORA_TABhow are you?
              */
             if (isAcceptVariable && variableFullPath === QUESTION_VAR_PREFIX) {
                 variableDict[`{{${variableFullPath}}}`] = handleEscapeCharacters(question, false)
@@ -1551,11 +1551,11 @@ export const isFlowValidForStream = (reactFlowNodes: IReactFlowNode[], endingNod
  * @returns {Promise<string>}
  */
 export const getEncryptionKey = async (): Promise<string> => {
-    if (process.env.FLOWISE_SECRETKEY_OVERWRITE !== undefined && process.env.FLOWISE_SECRETKEY_OVERWRITE !== '') {
-        return process.env.FLOWISE_SECRETKEY_OVERWRITE
+    if (process.env.NEXORA_SECRETKEY_OVERWRITE !== undefined && process.env.NEXORA_SECRETKEY_OVERWRITE !== '') {
+        return process.env.NEXORA_SECRETKEY_OVERWRITE
     }
     if (USE_AWS_SECRETS_MANAGER && secretsManagerClient) {
-        const secretId = process.env.SECRETKEY_AWS_NAME || 'FlowiseEncryptionKey'
+        const secretId = process.env.SECRETKEY_AWS_NAME || 'NEXORAEncryptionKey'
         try {
             const command = new GetSecretValueCommand({ SecretId: secretId })
             const response = await secretsManagerClient.send(command)
@@ -1583,7 +1583,7 @@ export const getEncryptionKey = async (): Promise<string> => {
         const encryptKey = generateEncryptKey()
         const defaultLocation = process.env.SECRETKEY_PATH
             ? path.join(process.env.SECRETKEY_PATH, 'encryption.key')
-            : path.join(getUserHome(), '.flowise', 'encryption.key')
+            : path.join(getUserHome(), '.Nexora', 'encryption.key')
         await fs.promises.writeFile(defaultLocation, encryptKey)
         return encryptKey
     }
@@ -1615,7 +1615,7 @@ export const decryptCredentialData = async (
 
     if (USE_AWS_SECRETS_MANAGER && secretsManagerClient) {
         try {
-            if (encryptedData.startsWith('FlowiseCredential_')) {
+            if (encryptedData.startsWith('NEXORACredential_')) {
                 const command = new GetSecretValueCommand({ SecretId: encryptedData })
                 const response = await secretsManagerClient.send(command)
 
@@ -1667,7 +1667,7 @@ export const generateEncryptKey = (): string => {
  * Used for file-based storage of TOKEN_HASH_SECRET, EXPRESS_SESSION_SECRET, JWT_*, etc.
  */
 export const getAuthSecretsDirectory = (): string => {
-    return process.env.SECRETKEY_PATH ? process.env.SECRETKEY_PATH : path.join(getUserHome(), '.flowise')
+    return process.env.SECRETKEY_PATH ? process.env.SECRETKEY_PATH : path.join(getUserHome(), '.Nexora')
 }
 
 /**
@@ -1682,7 +1682,7 @@ export interface GetOrCreateStoredSecretOptions {
     envKey: string
     fileName: string
     awsSecretIdSuffix: string
-    /** When generating a new secret, use this value instead of random (e.g. 'flowise' for JWT_ISSUER/JWT_AUDIENCE) */
+    /** When generating a new secret, use this value instead of random (e.g. 'Nexora' for JWT_ISSUER/JWT_AUDIENCE) */
     defaultValueForNew?: string
     /** If env is set to this value, treat as unset (backwards compat for weak defaults) */
     weakDefault?: string
@@ -1701,7 +1701,7 @@ export const getOrCreateStoredSecret = async (options: GetOrCreateStoredSecretOp
     }
 
     if (USE_AWS_SECRETS_MANAGER && secretsManagerClient) {
-        const prefix = process.env.SECRETKEY_AWS_AUTH_PREFIX || 'Flowise'
+        const prefix = process.env.SECRETKEY_AWS_AUTH_PREFIX || 'Nexora'
         const secretId = prefix + awsSecretIdSuffix
         try {
             const command = new GetSecretValueCommand({ SecretId: secretId })
@@ -1774,8 +1774,8 @@ const maskUrlPassword = (value: string): string | null => {
     try {
         const url = new URL(value)
         if (!url.password) return null
-        url.password = 'FLOWISE_MASKED'
-        return url.toString().replace('FLOWISE_MASKED', '\u2022\u2022\u2022\u2022\u2022\u2022')
+        url.password = 'NEXORA_MASKED'
+        return url.toString().replace('NEXORA_MASKED', '\u2022\u2022\u2022\u2022\u2022\u2022')
     } catch {
         return null
     }
@@ -1830,14 +1830,14 @@ export const getMemorySessionId = (
         // Provided in API body - incomingInput.overrideConfig: { sessionId: 'abc' }
         if (incomingInput.overrideConfig?.sessionId) {
             if (typeof incomingInput.overrideConfig.sessionId !== 'string') {
-                throw new InternalFlowiseError(StatusCodes.BAD_REQUEST, 'Invalid sessionId: must be a string')
+                throw new InternalNEXORAError(StatusCodes.BAD_REQUEST, 'Invalid sessionId: must be a string')
             }
             return incomingInput.overrideConfig.sessionId
         }
         // Provided in API body - incomingInput.chatId
         if (incomingInput.chatId) {
             if (typeof incomingInput.chatId !== 'string') {
-                throw new InternalFlowiseError(StatusCodes.BAD_REQUEST, 'Invalid chatId: must be a string')
+                throw new InternalNEXORAError(StatusCodes.BAD_REQUEST, 'Invalid chatId: must be a string')
             }
             return incomingInput.chatId
         }
@@ -1846,7 +1846,7 @@ export const getMemorySessionId = (
     // Hard-coded sessionId in UI
     if (memoryNode && memoryNode.data.inputs?.sessionId) {
         if (typeof memoryNode.data.inputs.sessionId !== 'string') {
-            throw new InternalFlowiseError(StatusCodes.BAD_REQUEST, 'Invalid sessionId: must be a string')
+            throw new InternalNEXORAError(StatusCodes.BAD_REQUEST, 'Invalid sessionId: must be a string')
         }
         return memoryNode.data.inputs.sessionId
     }
@@ -1885,7 +1885,7 @@ export const getSessionChatHistory = async (
         memoryNode.data.inputs.sessionId = sessionId
     }
 
-    const initializedInstance: FlowiseMemory = await newNodeInstance.init(memoryNode.data, '', {
+    const initializedInstance: NEXORAMemory = await newNodeInstance.init(memoryNode.data, '', {
         chatflowid,
         appDataSource,
         databaseEntities,
@@ -2018,7 +2018,7 @@ export const getAPIOverrideConfig = (chatflow: IChatFlow) => {
 export const getUploadPath = (): string => {
     return process.env.BLOB_STORAGE_PATH
         ? path.join(process.env.BLOB_STORAGE_PATH, 'uploads')
-        : path.join(getUserHome(), '.flowise', 'uploads')
+        : path.join(getUserHome(), '.Nexora', 'uploads')
 }
 
 export function generateId() {
@@ -2106,7 +2106,7 @@ export const _removeCredentialId = (obj: any): any => {
 
     const newObj: Record<string, any> = {}
     for (const [key, value] of Object.entries(obj)) {
-        if (key === 'FLOWISE_CREDENTIAL_ID') continue
+        if (key === 'NEXORA_CREDENTIAL_ID') continue
         newObj[key] = _removeCredentialId(value)
     }
     return newObj

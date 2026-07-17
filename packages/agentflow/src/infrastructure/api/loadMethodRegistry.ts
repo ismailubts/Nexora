@@ -19,7 +19,7 @@ export interface ApiServices {
 /**
  * Registry that maps `loadMethod` string keys — as declared on node `InputParam` definitions
  * (e.g. `{ loadMethod: 'listTools' }`) — to functions that fetch the corresponding options
- * from the Flowise API.
+ * from the Nexora API.
  *
  * Each entry receives the shared {@link ApiServices} instance and an optional `params` object,
  * and must return a `Promise` of the option values to populate the node's dropdown.
@@ -96,7 +96,7 @@ export const loadMethodRegistry: Record<string, (_apis: ApiServices, _params?: R
             return Promise.reject(new Error('`listActions` requires a string "nodeName" parameter.'))
         }
         const inputs = (params?.inputs as Record<string, unknown>) ?? {}
-        const credential = (inputs.credential as string) || (inputs['FLOWISE_CREDENTIAL_ID'] as string) || ''
+        const credential = (inputs.credential as string) || (inputs['NEXORA_CREDENTIAL_ID'] as string) || ''
         return apis.nodesApi.loadNodeMethod(nodeName, 'listActions', { credential, inputs, currentNode: { inputs } })
     }
 }

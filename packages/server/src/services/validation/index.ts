@@ -1,9 +1,9 @@
 import { StatusCodes } from 'http-status-codes'
-import { InternalFlowiseError } from '../../errors/internalFlowiseError'
+import { InternalNEXORAError } from '../../errors/internalNexoraError'
 import { getErrorMessage } from '../../errors/utils'
 import { getRunningExpressApp } from '../../utils/getRunningExpressApp'
 import { ChatFlow } from '../../database/entities/ChatFlow'
-import { INodeParams } from 'flowise-components'
+import { INodeParams } from 'nexora-components'
 import { resolveScheduleCron } from '../schedule'
 import { IComponentNodes, IReactFlowEdge, IReactFlowNode, IReactFlowObject } from '../../Interface'
 
@@ -228,7 +228,7 @@ export const validateFlowData = (
 
                         // Check for credential requirement in the component
                         if (componentNodes[componentName].credential && !componentNodes[componentName].credential.optional) {
-                            if (!configValue.FLOWISE_CREDENTIAL_ID && !configValue.credential) {
+                            if (!configValue.NEXORA_CREDENTIAL_ID && !configValue.credential) {
                                 nodeIssues.push(`${param.label} requires a credential`)
                             }
                         }
@@ -325,13 +325,13 @@ const checkFlowValidation = async (flowId: string, workspaceId?: string): Promis
         })
 
         if (!flow) {
-            throw new InternalFlowiseError(StatusCodes.NOT_FOUND, `Error: validationService.checkFlowValidation - flow not found!`)
+            throw new InternalNEXORAError(StatusCodes.NOT_FOUND, `Error: validationService.checkFlowValidation - flow not found!`)
         }
 
         const flowData: IReactFlowObject = JSON.parse(flow.flowData)
         return validateFlowData(flowData.nodes, flowData.edges, appServer.nodesPool.componentNodes)
     } catch (error) {
-        throw new InternalFlowiseError(
+        throw new InternalNEXORAError(
             StatusCodes.INTERNAL_SERVER_ERROR,
             `Error: validationService.checkFlowValidation - ${getErrorMessage(error)}`
         )

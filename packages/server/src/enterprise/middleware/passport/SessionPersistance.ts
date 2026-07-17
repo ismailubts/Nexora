@@ -89,8 +89,8 @@ export const initializeDBClientAndStore: any = () => {
         case 'sqlite': {
             const expressSession = require('express-session')
             const sqlSession = require('connect-sqlite3')(expressSession)
-            let flowisePath = path.join(getUserHome(), '.flowise')
-            const homePath = process.env.DATABASE_PATH ?? flowisePath
+            let NEXORAPath = path.join(getUserHome(), '.Nexora')
+            const homePath = process.env.DATABASE_PATH ?? NEXORAPath
             dbStore = new sqlSession({
                 db: 'database.sqlite',
                 table: 'login_sessions',

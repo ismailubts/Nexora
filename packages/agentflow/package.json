@@ -1,20 +1,20 @@
 {
-    "name": "@flowiseai/agentflow",
+    "name": "@nexora/agentflow",
     "version": "0.0.0-dev.14",
     "description": "Embeddable React component for building and visualizing AI agent workflows",
-    "license": "Apache-2.0",
+    "license": "SEE LICENSE IN LICENSE.md",
     "repository": {
         "type": "git",
-        "url": "https://github.com/FlowiseAI/Flowise.git",
+        "url": "https://github.com/ismailubts/Nexora.git",
         "directory": "packages/agentflow"
     },
-    "homepage": "https://github.com/FlowiseAI/Flowise/tree/main/packages/agentflow#readme",
+    "homepage": "https://github.com/ismailubts/Nexora/tree/main/packages/agentflow#readme",
     "bugs": {
-        "url": "https://github.com/FlowiseAI/Flowise/issues"
+        "url": "https://github.com/ismailubts/Nexora/issues"
     },
     "keywords": [
-        "flowise",
-        "flowiseai",
+        "Nexora",
+        "Nexora",
         "agentflow",
         "react",
         "llm",
@@ -35,7 +35,7 @@
             "require": "./dist/index.umd.js",
             "types": "./dist/index.d.ts"
         },
-        "./flowise.css": "./dist/flowise.css"
+        "./Nexora.css": "./dist/Nexora.css"
     },
     "files": [
         "dist"

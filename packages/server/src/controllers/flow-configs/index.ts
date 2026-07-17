@@ -1,19 +1,19 @@
 import { Request, Response, NextFunction } from 'express'
 import flowConfigsService from '../../services/flow-configs'
-import { InternalFlowiseError } from '../../errors/internalFlowiseError'
+import { InternalNEXORAError } from '../../errors/internalNexoraError'
 import { StatusCodes } from 'http-status-codes'
 
 const getSingleFlowConfig = async (req: Request, res: Response, next: NextFunction) => {
     try {
         if (typeof req.params === 'undefined' || !req.params.id) {
-            throw new InternalFlowiseError(
+            throw new InternalNEXORAError(
                 StatusCodes.PRECONDITION_FAILED,
                 `Error: flowConfigsController.getSingleFlowConfig - id not provided!`
             )
         }
         const workspaceId = req.user?.activeWorkspaceId
         if (!workspaceId) {
-            throw new InternalFlowiseError(
+            throw new InternalNEXORAError(
                 StatusCodes.NOT_FOUND,
                 `Error: flowConfigsController.getSingleFlowConfig - workspace ${workspaceId} not found!`
             )

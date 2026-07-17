@@ -1,6 +1,6 @@
 import { StatusCodes } from 'http-status-codes'
-import { InternalFlowiseError } from '../../errors/internalFlowiseError'
-import { FLOWISE_COUNTER_STATUS, FLOWISE_METRIC_COUNTERS } from '../../Interface.Metrics'
+import { InternalNEXORAError } from '../../errors/internalNexoraError'
+import { NEXORA_COUNTER_STATUS, NEXORA_METRIC_COUNTERS } from '../../Interface.Metrics'
 
 // typeorm is not directly resolvable under pnpm strict hoisting; provide a
 // virtual mock so entity decorators are no-ops in this test context.
@@ -84,7 +84,7 @@ const mockToolkitImpl = jest.fn().mockImplementation(() => ({
     _tools: { tools: [{ name: 'tool1' }] },
     client: { close: mockClose }
 }))
-jest.mock('flowise-components', () => ({
+jest.mock('nexora-components', () => ({
     MCPToolkit: mockToolkitImpl,
     checkDenyList: (url: string) => mockCheckDenyList(url),
     isValidURL: (url: string) => {
@@ -105,7 +105,7 @@ jest.mock('../../utils/logger', () => ({
 
 import customMcpServersService from './index'
 import { encryptCredentialData, decryptCredentialData } from '../../utils'
-import { MCPToolkit } from 'flowise-components'
+import { MCPToolkit } from 'nexora-components'
 
 const mockEncrypt = encryptCredentialData as jest.Mock
 const mockDecrypt = decryptCredentialData as jest.Mock
@@ -156,8 +156,8 @@ describe('customMcpServersService', () => {
                 expect.objectContaining({ version: '1.0.0', toolId: 'mcp-1', toolName: 'Test Server' }),
                 'org-1'
             )
-            expect(mockIncrementCounter).toHaveBeenCalledWith(FLOWISE_METRIC_COUNTERS.CUSTOM_MCP_SERVER_CREATED, {
-                status: FLOWISE_COUNTER_STATUS.SUCCESS
+            expect(mockIncrementCounter).toHaveBeenCalledWith(NEXORA_METRIC_COUNTERS.CUSTOM_MCP_SERVER_CREATED, {
+                status: NEXORA_COUNTER_STATUS.SUCCESS
             })
             // createCustomMcpServer returns a sanitized response: serverUrl is masked and authConfig is stripped
             const { authConfig: _authConfig, ...savedWithoutAuthConfig } = saved
@@ -190,7 +190,7 @@ describe('customMcpServersService', () => {
 
         it('should validate serverUrl and throw for invalid URL', async () => {
             await expect(customMcpServersService.createCustomMcpServer({ name: 'Bad', serverUrl: 'not-a-url' }, 'org-1')).rejects.toThrow(
-                InternalFlowiseError
+                InternalNEXORAError
             )
 
             await expect(customMcpServersService.createCustomMcpServer({ name: 'Bad', serverUrl: 'not-a-url' }, 'org-1')).rejects.toThrow(
@@ -204,8 +204,8 @@ describe('customMcpServersService', () => {
             ).rejects.toThrow('only http and https are allowed')
         })
 
-        it('should re-throw InternalFlowiseError as-is', async () => {
-            const specificError = new InternalFlowiseError(StatusCodes.BAD_REQUEST, 'custom error')
+        it('should re-throw InternalNEXORAError as-is', async () => {
+            const specificError = new InternalNEXORAError(StatusCodes.BAD_REQUEST, 'custom error')
             mockSave.mockRejectedValue(specificError)
 
             await expect(
@@ -213,12 +213,12 @@ describe('customMcpServersService', () => {
             ).rejects.toThrow(specificError)
         })
 
-        it('should wrap unknown errors in InternalFlowiseError', async () => {
+        it('should wrap unknown errors in InternalNEXORAError', async () => {
             mockSave.mockRejectedValue(new Error('db crash'))
 
             await expect(
                 customMcpServersService.createCustomMcpServer({ name: 'Test', serverUrl: 'https://example.com' }, 'org-1')
-            ).rejects.toThrow(InternalFlowiseError)
+            ).rejects.toThrow(InternalNEXORAError)
         })
     })
 
@@ -293,10 +293,10 @@ describe('customMcpServersService', () => {
             expect(result[0].serverUrl).toBe('************')
         })
 
-        it('should wrap errors in InternalFlowiseError', async () => {
+        it('should wrap errors in InternalNEXORAError', async () => {
             mockGetManyAndCount.mockRejectedValue(new Error('query failed'))
 
-            await expect(customMcpServersService.getAllCustomMcpServers('ws-1')).rejects.toThrow(InternalFlowiseError)
+            await expect(customMcpServersService.getAllCustomMcpServers('ws-1')).rejects.toThrow(InternalNEXORAError)
         })
     })
 
@@ -345,14 +345,14 @@ describe('customMcpServersService', () => {
         it('should throw NOT_FOUND when record does not exist', async () => {
             mockGetOne.mockResolvedValue(null)
 
-            await expect(customMcpServersService.getCustomMcpServerById('mcp-1', 'ws-1')).rejects.toThrow(InternalFlowiseError)
+            await expect(customMcpServersService.getCustomMcpServerById('mcp-1', 'ws-1')).rejects.toThrow(InternalNEXORAError)
             await expect(customMcpServersService.getCustomMcpServerById('mcp-1', 'ws-1')).rejects.toThrow('not found')
         })
 
-        it('should wrap unknown errors in InternalFlowiseError', async () => {
+        it('should wrap unknown errors in InternalNEXORAError', async () => {
             mockGetOne.mockRejectedValue(new Error('db error'))
 
-            await expect(customMcpServersService.getCustomMcpServerById('mcp-1', 'ws-1')).rejects.toThrow(InternalFlowiseError)
+            await expect(customMcpServersService.getCustomMcpServerById('mcp-1', 'ws-1')).rejects.toThrow(InternalNEXORAError)
         })
     })
 
@@ -484,10 +484,10 @@ describe('customMcpServersService', () => {
             expect(result).toEqual({ affected: 1 })
         })
 
-        it('should wrap errors in InternalFlowiseError', async () => {
+        it('should wrap errors in InternalNEXORAError', async () => {
             mockDelete.mockRejectedValue(new Error('db error'))
 
-            await expect(customMcpServersService.deleteCustomMcpServer('mcp-1', 'ws-1')).rejects.toThrow(InternalFlowiseError)
+            await expect(customMcpServersService.deleteCustomMcpServer('mcp-1', 'ws-1')).rejects.toThrow(InternalNEXORAError)
         })
     })
 

@@ -3,7 +3,7 @@ import { ChatMessage, OpenAI, OpenAIAgent } from 'llamaindex'
 import { getBaseClasses } from '../../../../src/utils'
 import { EvaluationRunTracerLlama } from '../../../../evaluation/EvaluationRunTracerLlama'
 import {
-    FlowiseMemory,
+    NEXORAMemory,
     ICommonObject,
     IMessage,
     INode,
@@ -74,7 +74,7 @@ class OpenAIFunctionAgent_LlamaIndex_Agents implements INode {
     }
 
     async run(nodeData: INodeData, input: string, options: ICommonObject): Promise<string | ICommonObject> {
-        const memory = nodeData.inputs?.memory as FlowiseMemory
+        const memory = nodeData.inputs?.memory as NEXORAMemory
         const model = nodeData.inputs?.model as OpenAI
         const systemMessage = nodeData.inputs?.systemMessage as string
         let tools = nodeData.inputs?.tools

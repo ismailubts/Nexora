@@ -6,14 +6,14 @@ import {
     INodeParams,
     MemoryMethods,
     ICommonObject,
-    FlowiseSummaryBufferMemory
+    NEXORASummaryBufferMemory
 } from '../../../src/Interface'
 import { getBaseClasses, mapChatMessageToBaseMessage } from '../../../src/utils'
 import { BaseLanguageModel } from '@langchain/core/language_models/base'
 import { BaseMessage, getBufferString, HumanMessage } from '@langchain/core/messages'
 import { ConversationSummaryBufferMemory, ConversationSummaryBufferMemoryInput } from '@langchain/classic/memory'
 import { DataSource } from 'typeorm'
-import { ChatAnthropic } from '../../chatmodels/ChatAnthropic/FlowiseChatAnthropic'
+import { ChatAnthropic } from '../../chatmodels/ChatAnthropic/NexoraChatAnthropic'
 
 class ConversationSummaryBufferMemory_Memory implements INode {
     label: string
@@ -53,7 +53,7 @@ class ConversationSummaryBufferMemory_Memory implements INode {
                 name: 'sessionId',
                 type: 'string',
                 description:
-                    'If not specified, a random id will be used. Learn <a target="_blank" href="https://docs.flowiseai.com/memory#ui-and-embedded-chat">more</a>',
+                    'If not specified, a random id will be used. Learn <a target="_blank" href="https://github.com/ismailubts/Nexora/memory#ui-and-embedded-chat">more</a>',
                 default: '',
                 optional: true,
                 additionalParams: true
@@ -104,7 +104,7 @@ interface BufferMemoryExtendedInput {
     orgId: string
 }
 
-class ConversationSummaryBufferMemoryExtended extends FlowiseSummaryBufferMemory implements MemoryMethods {
+class ConversationSummaryBufferMemoryExtended extends NEXORASummaryBufferMemory implements MemoryMethods {
     appDataSource: DataSource
     databaseEntities: IDatabaseEntity
     chatflowid: string

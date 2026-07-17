@@ -26,7 +26,7 @@ import { getFileFromStorage } from './storageUtils'
 
 export const numberOrExpressionRegex = '^(\\d+\\.?\\d*|{{.*}})$' //return true if string consists only numbers OR expression {{}}
 export const notEmptyRegex = '(.|\\s)*\\S(.|\\s)*' //return true if string is not empty or blank
-export const FLOWISE_CHATID = 'flowise_chatId'
+export const NEXORA_CHATID = 'NEXORA_chatId'
 
 let secretsManagerClient: SecretsManagerClient | null = null
 const USE_AWS_SECRETS_MANAGER = process.env.SECRETKEY_STORAGE_TYPE === 'aws'
@@ -50,7 +50,7 @@ if (USE_AWS_SECRETS_MANAGER) {
 }
 
 /*
- * List of dependencies allowed to be import in @flowiseai/nodevm
+ * List of dependencies allowed to be import in @nexora/nodevm
  */
 export const availableDependencies = [
     '@aws-sdk/client-bedrock-runtime',
@@ -314,7 +314,7 @@ const extractTextFromChunk = (response: AIMessageChunk): string => {
 /**
  * Creates a streaming-compatible output parser that extracts text content from
  * chat model responses, filtering out reasoning/thinking content blocks.
- * https://github.com/FlowiseAI/Flowise/pull/5893#issuecomment-4045466531
+ * https://github.com/ismailubts/Nexora/pull/5893#issuecomment-4045466531
  */
 export const createTextOnlyOutputParser = () => {
     return new TextOnlyOutputParser()
@@ -325,7 +325,7 @@ class TextOnlyOutputParser extends Runnable<AIMessageChunk, string> {
         return 'TextOnlyOutputParser'
     }
 
-    lc_namespace = ['flowise', 'output_parsers']
+    lc_namespace = ['Nexora', 'output_parsers']
 
     async invoke(input: AIMessageChunk, _options?: Partial<RunnableConfig>): Promise<string> {
         return extractTextFromChunk(input)
@@ -557,7 +557,7 @@ const getEncryptionKeyFilePath = (): string => {
         path.join(__dirname, '..', '..', '..', '..', 'server', 'encryption.key'),
         path.join(__dirname, '..', '..', '..', '..', '..', 'encryption.key'),
         path.join(__dirname, '..', '..', '..', '..', '..', 'server', 'encryption.key'),
-        path.join(getUserHome(), '.flowise', 'encryption.key')
+        path.join(getUserHome(), '.Nexora', 'encryption.key')
     ]
     for (const checkPath of checkPaths) {
         if (fs.existsSync(checkPath)) {
@@ -576,12 +576,12 @@ export const getEncryptionKeyPath = (): string => {
  * @returns {Promise<string>}
  */
 const getEncryptionKey = async (): Promise<string> => {
-    if (process.env.FLOWISE_SECRETKEY_OVERWRITE !== undefined && process.env.FLOWISE_SECRETKEY_OVERWRITE !== '') {
-        return process.env.FLOWISE_SECRETKEY_OVERWRITE
+    if (process.env.NEXORA_SECRETKEY_OVERWRITE !== undefined && process.env.NEXORA_SECRETKEY_OVERWRITE !== '') {
+        return process.env.NEXORA_SECRETKEY_OVERWRITE
     }
     try {
         if (USE_AWS_SECRETS_MANAGER && secretsManagerClient) {
-            const secretId = process.env.SECRETKEY_AWS_NAME || 'FlowiseEncryptionKey'
+            const secretId = process.env.SECRETKEY_AWS_NAME || 'NEXORAEncryptionKey'
             const command = new GetSecretValueCommand({ SecretId: secretId })
             const response = await secretsManagerClient.send(command)
 
@@ -607,7 +607,7 @@ export const decryptCredentialData = async (encryptedData: string): Promise<ICom
 
     if (USE_AWS_SECRETS_MANAGER && secretsManagerClient) {
         try {
-            if (encryptedData.startsWith('FlowiseCredential_')) {
+            if (encryptedData.startsWith('NEXORACredential_')) {
                 const command = new GetSecretValueCommand({ SecretId: encryptedData })
                 const response = await secretsManagerClient.send(command)
 
@@ -689,13 +689,13 @@ export const getCredentialParam = (paramName: string, credentialData: ICommonObj
 
 // reference https://www.freeformatter.com/json-escape.html
 const jsonEscapeCharacters = [
-    { escape: '"', value: 'FLOWISE_DOUBLE_QUOTE' },
-    { escape: '\n', value: 'FLOWISE_NEWLINE' },
-    { escape: '\b', value: 'FLOWISE_BACKSPACE' },
-    { escape: '\f', value: 'FLOWISE_FORM_FEED' },
-    { escape: '\r', value: 'FLOWISE_CARRIAGE_RETURN' },
-    { escape: '\t', value: 'FLOWISE_TAB' },
-    { escape: '\\', value: 'FLOWISE_BACKSLASH' }
+    { escape: '"', value: 'NEXORA_DOUBLE_QUOTE' },
+    { escape: '\n', value: 'NEXORA_NEWLINE' },
+    { escape: '\b', value: 'NEXORA_BACKSPACE' },
+    { escape: '\f', value: 'NEXORA_FORM_FEED' },
+    { escape: '\r', value: 'NEXORA_CARRIAGE_RETURN' },
+    { escape: '\t', value: 'NEXORA_TAB' },
+    { escape: '\\', value: 'NEXORA_BACKSLASH' }
 ]
 
 function handleEscapesJSONParse(input: string, reverse: Boolean): string {

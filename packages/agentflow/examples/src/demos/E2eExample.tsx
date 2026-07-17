@@ -1,7 +1,7 @@
 /**
  * E2E Example
  *
- * Demonstrates a full end-to-end integration with a live Flowise instance:
+ * Demonstrates a full end-to-end integration with a live Nexora instance:
  * - Load a saved flow from the database via VITE_FLOW_ID
  * - Editable flow title (synced to DB on save)
  * - Save flow to DB (creates new chatflow if no ID is configured)
@@ -11,9 +11,9 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react'
 
-import type { AgentFlowInstance, FlowData, HeaderRenderProps } from '@flowiseai/agentflow'
-import { Agentflow } from '@flowiseai/agentflow'
 import { Button, Chip, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Fab } from '@mui/material'
+import type { AgentFlowInstance, FlowData, HeaderRenderProps } from '@nexora/agentflow'
+import { Agentflow } from '@nexora/agentflow'
 import { IconDeviceFloppy, IconPlayerPlay, IconTrash } from '@tabler/icons-react'
 
 import { agentflowId as configuredAgentflowId, apiBaseUrl, token } from '../config'

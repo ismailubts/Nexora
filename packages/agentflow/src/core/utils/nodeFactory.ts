@@ -181,8 +181,8 @@ export function initNode(nodeData: NodeDataSchema, newNodeId: string, isAgentflo
     if (rawCredential?.credentialNames?.length) {
         inputDefinitions.unshift({
             ...rawCredential,
-            id: `${newNodeId}-input-FLOWISE_CREDENTIAL_ID-credential`,
-            name: 'FLOWISE_CREDENTIAL_ID',
+            id: `${newNodeId}-input-NEXORA_CREDENTIAL_ID-credential`,
+            name: 'NEXORA_CREDENTIAL_ID',
             label: rawCredential.label ?? 'Credential',
             type: 'credential'
         })

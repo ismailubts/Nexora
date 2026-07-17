@@ -1,10 +1,10 @@
 import { StatusCodes } from 'http-status-codes'
-import { InternalFlowiseError } from '../../errors/internalFlowiseError'
+import { InternalNEXORAError } from '../../errors/internalNexoraError'
 import { getErrorMessage } from '../../errors/utils'
 import { getRunningExpressApp } from '../../utils/getRunningExpressApp'
 import path from 'path'
 import * as fs from 'fs'
-import { generateAgentflowv2 as generateAgentflowv2_json } from 'flowise-components'
+import { generateAgentflowv2 as generateAgentflowv2_json } from 'nexora-components'
 import { z } from 'zod/v3'
 import { sysPrompt } from './prompt'
 import { databaseEntities } from '../../utils'
@@ -244,7 +244,7 @@ const generateAgentflowv2 = async (question: string, selectedChatModel: Record<s
             } as any // Type assertion to avoid type errors
         }
     } catch (error) {
-        throw new InternalFlowiseError(StatusCodes.INTERNAL_SERVER_ERROR, `Error: generateAgentflowv2 - ${getErrorMessage(error)}`)
+        throw new InternalNEXORAError(StatusCodes.INTERNAL_SERVER_ERROR, `Error: generateAgentflowv2 - ${getErrorMessage(error)}`)
     }
 }
 

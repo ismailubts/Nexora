@@ -431,21 +431,21 @@ describe('useExecutionTree', () => {
 
     describe('credential redaction', () => {
         // PARITY: legacy buildTreeData (ExecutionDetails.jsx:371-383) recursively
-        // strips `FLOWISE_CREDENTIAL_ID` keys from each node's `data` because the
+        // strips `NEXORA_CREDENTIAL_ID` keys from each node's `data` because the
         // server-side list/detail endpoints don't redact (only the public
         // endpoint does). The hook does the scrubbing client-side.
-        it('removes top-level FLOWISE_CREDENTIAL_ID keys from raw.data', () => {
-            const node = baseNode({ nodeId: 'n1', data: { FLOWISE_CREDENTIAL_ID: 'secret', other: 'kept' } })
+        it('removes top-level NEXORA_CREDENTIAL_ID keys from raw.data', () => {
+            const node = baseNode({ nodeId: 'n1', data: { NEXORA_CREDENTIAL_ID: 'secret', other: 'kept' } })
             const { result } = renderHook(() => useExecutionTree(toJson([node])))
             const raw = result.current[0].raw!
-            expect((raw.data as Record<string, unknown>).FLOWISE_CREDENTIAL_ID).toBeUndefined()
+            expect((raw.data as Record<string, unknown>).NEXORA_CREDENTIAL_ID).toBeUndefined()
             expect((raw.data as Record<string, unknown>).other).toBe('kept')
         })
 
-        it('removes nested FLOWISE_CREDENTIAL_ID keys recursively', () => {
+        it('removes nested NEXORA_CREDENTIAL_ID keys recursively', () => {
             const node = baseNode({
                 nodeId: 'n1',
-                data: { input: { credentials: { FLOWISE_CREDENTIAL_ID: 'secret', label: 'kept' } } }
+                data: { input: { credentials: { NEXORA_CREDENTIAL_ID: 'secret', label: 'kept' } } }
             })
             const { result } = renderHook(() => useExecutionTree(toJson([node])))
             const raw = result.current[0].raw!
@@ -453,7 +453,7 @@ describe('useExecutionTree', () => {
                 string,
                 unknown
             >
-            expect(credentials.FLOWISE_CREDENTIAL_ID).toBeUndefined()
+            expect(credentials.NEXORA_CREDENTIAL_ID).toBeUndefined()
             expect(credentials.label).toBe('kept')
         })
     })

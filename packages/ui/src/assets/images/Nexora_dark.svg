@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 48" role="img" aria-label="Nexora">
+  <defs>
+    <linearGradient id="nexoraIconDark" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#22d3ee"/>
+      <stop offset="100%" stop-color="#3b82f6"/>
+    </linearGradient>
+  </defs>
+  <polygon points="6,34 22,26 22,10 6,18" fill="url(#nexoraIconDark)" opacity="0.55"/>
+  <polygon points="22,26 38,18 38,2 22,10" fill="url(#nexoraIconDark)" opacity="0.82"/>
+  <polygon points="6,18 22,10 38,2 22,26" fill="url(#nexoraIconDark)"/>
+  <text x="48" y="33" font-family="Segoe UI, Inter, system-ui, sans-serif" font-size="26" font-weight="700" letter-spacing="-0.4" fill="#ffffff">Nexora</text>
+</svg>

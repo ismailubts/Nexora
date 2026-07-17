@@ -1,5 +1,5 @@
 // ===========================================
-// @flowiseai/agentflow - Public API
+// @nexora/agentflow - Public API
 // ===========================================
 
 // Main component
